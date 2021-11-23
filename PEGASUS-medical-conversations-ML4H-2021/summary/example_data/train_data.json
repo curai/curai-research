@@ -1,0 +1,164 @@
+{"138955_24": {
+    "snippet": [
+        "PROFESSIONAL: Have you been belching?",
+        "CUSTOMER: No."
+    ],
+
+    "kb_concepts": [
+        null,
+        null
+    ],
+    "tags": [],
+    "summary": "[NO] No belching.",
+    "source": "HUMAN",
+    "is_history_gathering": null
+},
+"69437_1": {
+    "snippet": [
+        "PROFESSIONAL: Hi Jill. My name is Esme, and I am your Health Coach. My role allows me to educate you on your symptoms and provide additional resources regarding the topics we are able to address. I am not authorized to diagnose or prescribe. Over the next 20 minutes, I will gather some additional information so I can get a better picture of what is going on.",
+        "PROFESSIONAL: Pregnancy occurs if semen is deposited in the vagina around the time of ovulation. Ovulation typically occurs mid-cycle for most women with regular 28-30 day cycles. However, ovulation can occur as early as eight days after the first day of the last menstrual period.",
+        "PROFESSIONAL: Missed period is usually an early sign of pregnancy and having a regular period usually excludes the chances of pregnancy.",
+        "PROFESSIONAL: Has the bleeding been regular and similar to a normal period?",
+        "CUSTOMER: Yes it has"
+    ],
+
+    "kb_concepts": [
+        null,
+        null,
+        null,
+        null,
+        null
+    ],
+    "tags": [],
+    "summary": "Bleeding is regular and similar to normal period.",
+    "source": "HUMAN",
+    "is_history_gathering": null
+},
+"135375_4": {
+    "snippet": [
+        "PROFESSIONAL: Thanks for sharing. What about the back pain? Doing better with that?",
+        "CUSTOMER: Still there every once in a while, but not daily",
+        "PROFESSIONAL: Good to know things look better!",
+        "CUSTOMER: Thank you"
+    ],
+
+    "kb_concepts": [
+        null,
+        null,
+        null,
+        null
+    ],
+    "tags": [],
+    "summary": "Back pain is still there every once in a while, but not daily.",
+    "source": "HUMAN",
+    "is_history_gathering": null
+},
+"128169_9": {
+    "snippet": [
+        "PROFESSIONAL: Okay. Is this the first time you are missing period this late?",
+        "CUSTOMER: No. I've had it be late by two weeks and even have missed it twice."
+    ],
+
+    "kb_concepts": [
+        null,
+        null
+    ],
+    "tags": [],
+    "summary": "[No] Not the first time missing period. Has it late by 2 weeks and even missed it twice.",
+    "source": "HUMAN",
+    "is_history_gathering": null
+},
+"145707_5": {
+    "snippet": [
+        "PROFESSIONAL: Thanks for letting me know. Have your symptoms gotten worse in the last 1 week?",
+        "CUSTOMER: Yes they have. The feeling of fullness of loss of hearing has stayed relatively the same throughout the week I've had this, but the past 2 days I've started feeling pain in my ear"
+    ],
+
+    "kb_concepts": [
+        null,
+        null
+    ],
+    "tags": [],
+    "summary": "Symptoms gotten worsen in the last 1 week. The feeling of loss of hearing has stayed relatively the same through out the week. The past 2 days, started feeling pain in the ear.",
+    "source": "HUMAN",
+    "is_history_gathering": null
+},
+"138647_10": {
+    "snippet": [
+        "PROFESSIONAL: Are you feeling anxious?",
+        "CUSTOMER: No."
+    ],
+
+    "kb_concepts": [
+        null,
+        null
+    ],
+    "tags": [],
+    "summary": "[NO] Not feeling anxious.",
+    "source": "HUMAN",
+    "is_history_gathering": null
+},
+"137417_1": {
+    "snippet": [
+        "PROFESSIONAL: Thank you so much for sharing. Just to confirm, you have stuffy nose and throat pain from the past 3 months?",
+        "CUSTOMER: Yes but not really throat pain, it's like when I wake up it's sore and then it goes away and then sometimes when I go to sleep it's sore. But not during the day. But yes, that along with my stuffy nose has been happening for 3 months and I normally get allergies so i am/was assuming it was just allergies."
+    ],
+
+    "kb_concepts": [
+        null,
+        null
+    ],
+    "tags": [],
+    "summary": "Not really throat pain. On waking up it's sore and then it goes away and then sometimes when going to sleep it's sore. But not during the day. That along with stuffy nose has been happening for 3 months and normally get allergies so is/ was assuming it was just allergies.",
+    "source": "HUMAN",
+    "is_history_gathering": null
+},
+"74290_13": {
+    "snippet": [
+        "PROFESSIONAL: That's helpful info. Were you on any kind of medications as well at any point of time?",
+        "CUSTOMER: Just ibuprofen and birth control",
+        "CUSTOMER: I've been on and off birth control",
+        "CUSTOMER: Just got off 3 months ago"
+    ],
+
+    "kb_concepts": [
+        null,
+        null,
+        null,
+        null
+    ],
+    "tags": [],
+    "summary": "Is just on Ibuprofen and birth control. On and off on birthcontrol. Got off 3 months ago.",
+    "source": "HUMAN",
+    "is_history_gathering": null
+},
+"134093_6": {
+    "snippet": [
+        "PROFESSIONAL: Is the pain constant or has it been on & off?",
+        "CUSTOMER: It was consistent now it's lowering"
+    ],
+
+    "kb_concepts": [
+        null,
+        null
+    ],
+    "tags": [],
+    "summary": "Consistent pain, now lower.",
+    "source": "HUMAN",
+    "is_history_gathering": null
+},
+"135293_3": {
+    "snippet": [
+        "PROFESSIONAL: Okay, how long did the bleeding last?",
+        "CUSTOMER: 5 days"
+    ],
+
+    "kb_concepts": [
+        null,
+        null
+    ],
+    "tags": [],
+    "summary": "Bleeding lasted 5 days.",
+    "source": "HUMAN",
+    "is_history_gathering": null
+}}

@@ -1,0 +1,158 @@
+{"134434_4": {
+    "snippet": [
+        "PROFESSIONAL: Are you sexually active?",
+        "CUSTOMER: No. Last time I've had sex was February"
+    ],
+
+    "kb_concepts": [
+        null,
+        null
+    ],
+    "tags": [],
+    "summary": "[NO] Not sexually active. Last time had sex was February",
+    "source": "HUMAN",
+    "is_history_gathering": null
+},
+"136329_6": {
+    "snippet": [
+        "PROFESSIONAL: Thanks for letting me know. How long have you had these episodes?",
+        "CUSTOMER: 3-4 days"
+    ],
+
+    "kb_concepts": [
+        null,
+        null
+    ],
+    "tags": [],
+    "summary": "Has had these episodes for 3-4 days.",
+    "source": "HUMAN",
+    "is_history_gathering": null
+},
+"72909_18": {
+    "snippet": [
+        "PROFESSIONAL: Would you like to try some simple home remedies for your symptoms?",
+        "CUSTOMER: Sure",
+        "CUSTOMER: If there's anything with green tea, I'll do it",
+        "CUSTOMER: i looooove green tea"
+    ],
+
+    "kb_concepts": [
+        null,
+        null,
+        null,
+        null
+    ],
+    "tags": [],
+    "summary": "Would like to try home remedies for symptoms.",
+    "source": "HUMAN",
+    "is_history_gathering": null
+},
+"133010_8": {
+    "snippet": [
+        "PROFESSIONAL: Alright. Does anything make you feel better or worse in terms of your symptoms?",
+        "CUSTOMER: No"
+    ],
+
+    "kb_concepts": [
+        null,
+        null
+    ],
+    "tags": [],
+    "summary": "[NO] nothing makes the symptoms feel better or worse.",
+    "source": "HUMAN",
+    "is_history_gathering": null
+},
+"146320_1": {
+    "snippet": [
+        "PROFESSIONAL: That sounds quite bothersome. Is this the first time you have experienced something like this?",
+        "CUSTOMER: Yes!"
+    ],
+
+    "kb_concepts": [
+        null,
+        null
+    ],
+    "tags": [],
+    "summary": "This is the first time she has experienced something like this.",
+    "source": "HUMAN",
+    "is_history_gathering": null
+},
+"131369_17": {
+    "snippet": [
+        "PROFESSIONAL: Any known medical conditions? Are you on any regular medications?",
+        "CUSTOMER: No"
+    ],
+
+    "kb_concepts": [
+        null,
+        null
+    ],
+    "tags": [],
+    "summary": "[NO] No known medical conditions. [NO] not on any regular medications.",
+    "source": "HUMAN",
+    "is_history_gathering": null
+},
+"127096_62": {
+    "snippet": [
+        "PROFESSIONAL: Got it, okay. Do you feel short of breath, like it's hard for you to catch your breath?",
+        "CUSTOMER: Kind of",
+        "CUSTOMER: My legs also hurt and my lower back",
+        "CUSTOMER: I might not have a high fever but I am so cold I cannot get warm"
+    ],
+
+    "kb_concepts": [
+        null,
+        null,
+        null,
+        null
+    ],
+    "tags": [],
+    "summary": "Feels short of breath. Legs and lower back hurt. [NO] Doesn't have high fever. Feels cold",
+    "source": "HUMAN",
+    "is_history_gathering": null
+},
+"129637_7": {
+    "snippet": [
+        "PROFESSIONAL: Sounds rough. So, basically you have used a wash with 10% of Benzoyl peroxide, and this one that you used before the rash had only 4%, but it still led to a rash. Is that right?",
+        "CUSTOMER: Yes"
+    ],
+
+    "kb_concepts": [
+        null,
+        null
+    ],
+    "tags": [],
+    "summary": "Used wash with 10% benzoyl peroxide and the one used before the rash had only 4% but it still led to rash.",
+    "source": "HUMAN",
+    "is_history_gathering": null
+},
+"133635_11": {
+    "snippet": [
+        "PROFESSIONAL: I understand. Is the pain continuous while walking or on & off?",
+        "CUSTOMER: When walking on it yes"
+    ],
+
+    "kb_concepts": [
+        null,
+        null
+    ],
+    "tags": [],
+    "summary": "Pain is continuous while walking on it.",
+    "source": "HUMAN",
+    "is_history_gathering": null
+},
+"136503_17": {
+    "snippet": [
+        "PROFESSIONAL: Thank you so much. Jane, are you on any medications apart from compounded thyroid and probiotics?",
+        "CUSTOMER: No"
+    ],
+
+    "kb_concepts": [
+        null,
+        null
+    ],
+    "tags": [],
+    "summary": "[NO] Not on any medications apart from compounded thyroid and probiotics.",
+    "source": "HUMAN",
+    "is_history_gathering": null
+}}

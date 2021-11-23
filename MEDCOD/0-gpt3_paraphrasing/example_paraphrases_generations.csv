@@ -1,0 +1,3 @@
+`target concept for GPT-3`, `target concept in our pre-existing bank of questions`, `Pre-existing question for the concept`, `GPT-3 generated paraphrase`, `Whether human labeler considered the generated paraphrase valid`
+fever,fever,Do you have a fever?,Do you have a fever?,1,
+fever,fever,Do you have a fever?,Does you have fever?,0,

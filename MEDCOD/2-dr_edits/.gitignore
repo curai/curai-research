@@ -1,0 +1,10 @@
+artifacts
+cached
+figures
+runs
+wandb
+
+ilya/
+
+dataset*.pkl
+model.pkl

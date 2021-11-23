@@ -9,7 +9,3 @@ Abstract: Medical conversation summarization is an important component of captur
 The experiments in our ML4H submission were generated using the script ```$ bash run.sh``` (*warning data not included*).
 
 This script contains the necessary code to run all experiments shown in Figure 1 and will log all metrics appropriately to Weights and Biases. To dive into the specific file containing the code for PEGASUS, see ```train_pegasus.py``` and ```summary/pegasus/trainer.py```.
-
-### TODO
-
-These scripts still contain several dependencies to Curai Health specific libraries, which will be removed and refactored in the future. Note we also do not release the dataset used for training as part of patient privacy protections.

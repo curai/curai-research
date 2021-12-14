@@ -1,0 +1,4 @@
+occurs_at,question_text,default_question_text,kb_concept_display,kb_concept_id,encounter_id
+2025-09-01 01:01:00,Did you fall recently?,Did you fall?,fall,kb#1,Encounter:1
+2025-09-01 01:01:00,Good to hear that. Sorry for asking a personal questions. Do you smoke?,Do you smoke?,smoker,kb#2,Encounter:2
+2025-09-01 01:01:00,Do you have bloating/abdominal fullness?,Do you have bloating?,bloating,kb#3,Encounter:3

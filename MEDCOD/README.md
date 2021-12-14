@@ -1,37 +1,24 @@
-# **MEDCOD**: A **M**edically-Accurate, **E**motive, **D**iverse, and **CO**ntrollable **D**ialog System
+# [MEDCOD: A Medically-Accurate, Emotive, Diverse, and Controllable Dialog System](https://arxiv.org/abs/2111.09381)
 
-![Project Overview](img/highlevel.png)
+Authors: Rhys Compton, Ilya Valmianski, Li Deng, Costa Huang, Namit Katariya, Xavier Amatriain, Anitha Kannan
 
-This repository contains the models/algorithms described in: 
+We present MEDCOD, a Medically-Accurate, Emotive, Diverse, and Controllable Dialog system with a unique approach to the natural language generator module. MEDCOD has been developed and evaluated specifically for the history taking task. It integrates the advantage of a traditional modular approach to incorporate (medical) domain knowledge with modern deep learning techniques to generate flexible, human-like natural language expressions. Two key aspects of MEDCOD's natural language output are described in detail. First, the generated sentences are emotive and empathetic, similar to how a doctor would communicate to the patient. Second, the generated sentence structures and phrasings are varied and diverse while maintaining medical consistency with the desired medical concept (provided by the dialogue manager module of MEDCOD). Experimental results demonstrate the effectiveness of our approach in creating a human-like medical dialogue system. Relevant code is available at this https URL
 
-[Rhys Compton](https://www.rhyscompton.co.nz/), [Ilya Valmianski](#), [Li Deng](#), [Costa Huang](#), [Namit Katariya](#), [Xavier Amatriain](#), [Anitha Kannan](#) - *MEDCOD: A Medically-Accurate, Emotive, Diverse, and Controllable Dialog System*, in [ML4H 2021](https://ml4health.github.io/2021/).
+## Setup
 
-### ArXiv Preprint - [Link](https://arxiv.org/abs/2111.09381)
+All code in this repo operates off the same virtual environment. Follow the steps below to set it up.
 
-![First page of paper](img/MEDCOD_camera_ready-01.png)
-
-### Conference Poster - [Link](https://drive.google.com/file/d/1KbWS2PQZ9M6fkDZoleH1ehmWA7Ui0i0M/view?usp=sharing)
-
-![Conference Poster](img/poster.png)
-
-Table of Contents
-=================
-- [Requirements](#requirements)
-- [Usage Instructions](#usage-instructions)
-- [Results](#results)
-
-## Requirements
-
-To install requirements:
-
-```setup
+```
+pyenv virtualenv dialogpt
+pyenv local dialogpt
 pip install -r requirements.txt
 ```
 
-## Usage Instructions
 
-Watch this space...
+## Contents
 
-## Results
+* `0-gpt3_paraphrasing` - Scripts for paraphrasing KB questions using **GPT-3** and analysing the results
+* `1-dialogpt` - All code related to data preparation and training of **DialoGPT**
+* `2-dr_edits` - Code for preprocessing the Dr Edits dataset, and for training the **Empathy Prediction** model
 
-![Conversation Comparison](img/comparison.png)
+Please see each individual folder for more details

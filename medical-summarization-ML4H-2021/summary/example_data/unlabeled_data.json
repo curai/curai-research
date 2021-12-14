@@ -1,0 +1,154 @@
+{"195033_1": {
+    "snippet": [
+        "PROFESSIONAL: When was your last period Jane?",
+        "CUSTOMER: Jan 15"
+    ],
+
+    "kb_concepts": [
+        null,
+        null
+    ],
+    "tags": null,
+    "summary": null,
+    "source": null,
+    "is_history_gathering": true
+},
+"195037_5": {
+    "snippet": [
+        "PROFESSIONAL: Do you have any pain in that area?",
+        "CUSTOMER: Not really only a tiny bit sometimes, mostly just discomfort"
+    ],
+
+    "kb_concepts": [
+        null,
+        null
+    ],
+    "tags": null,
+    "summary": null,
+    "source": null,
+    "is_history_gathering": true
+},
+"195039_31": {
+    "snippet": [
+        "PROFESSIONAL: And you had symptoms during your pregnancy also ?",
+        "CUSTOMER: I had the strong smell and thin discharge"
+    ],
+
+    "kb_concepts": [
+        null,
+        null
+    ],
+    "tags": null,
+    "summary": null,
+    "source": null,
+    "is_history_gathering": true
+},
+"195039_34": {
+    "snippet": [
+        "PROFESSIONAL: When were you last sexually active?",
+        "CUSTOMER: Unsure. A week ago"
+    ],
+
+    "kb_concepts": [
+        "last sexually active",
+        null
+    ],
+    "tags": null,
+    "summary": null,
+    "source": null,
+    "is_history_gathering": true
+},
+"195050_2": {
+    "snippet": [
+        "PROFESSIONAL: Alexis, can you describe your symptoms?",
+        "CUSTOMER: Burning when I pee",
+        "CUSTOMER: I have to pee every five minutes and I pee very little",
+        "CUSTOMER: Pain in bladder area"
+    ],
+
+    "kb_concepts": [
+        null,
+        null,
+        null,
+        null
+    ],
+    "tags": null,
+    "summary": null,
+    "source": null,
+    "is_history_gathering": true
+},
+"195052_7": {
+    "snippet": [
+        "PROFESSIONAL: Okay, have you been in the sun a lot lately, Kim?",
+        "CUSTOMER: No not at all"
+    ],
+
+    "kb_concepts": [
+        null,
+        null
+    ],
+    "tags": null,
+    "summary": null,
+    "source": null,
+    "is_history_gathering": true
+},
+"195052_46": {
+    "snippet": [
+        "PROFESSIONAL: What were you taking Fluconazole, Phenazopyridine and Macrodantin for?",
+        "CUSTOMER: A UTI"
+    ],
+
+    "kb_concepts": [
+        null,
+        null
+    ],
+    "tags": null,
+    "summary": null,
+    "source": null,
+    "is_history_gathering": true
+},
+"195058_17": {
+    "snippet": [
+        "PROFESSIONAL: Do you have any lesions or sores on your vagina?",
+        "CUSTOMER: No"
+    ],
+
+    "kb_concepts": [
+        "vaginal lesion",
+        null
+    ],
+    "tags": null,
+    "summary": null,
+    "source": null,
+    "is_history_gathering": true
+},
+"195064_15": {
+    "snippet": [
+        "PROFESSIONAL: Have you noticed any bright red blood in your stool?",
+        "CUSTOMER: No"
+    ],
+
+    "kb_concepts": [
+        "hematochezia",
+        null
+    ],
+    "tags": null,
+    "summary": null,
+    "source": null,
+    "is_history_gathering": true
+},
+"195071_1": {
+    "snippet": [
+        "PROFESSIONAL: Are you looking for a surgery on our platform?",
+        "CUSTOMER: Yes"
+    ],
+
+    "kb_concepts": [
+        null,
+        null
+    ],
+    "tags": null,
+    "summary": null,
+    "source": null,
+    "is_history_gathering": true
+}}

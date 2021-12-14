@@ -1,0 +1,14 @@
+[
+    ["headache",
+     "Do you have a headache?",
+     "Are you suffering from headaches?"],
+    ["abdominal pain",
+     "Does your abdomen or belly hurt?",
+     "Are you experiencing pain in your belly or abdomen?"],
+    ["pain relieved with food",
+     "Do you have pain that is relieved by food?",
+     "Does eating food ease the pain?"],
+    ["substernal chest pain",
+     "Do you have any pain in the center of your chest behind your sternum [breastbone]?",
+     "Is there any pain behind the sternum [breastbone] in the center of your chest?"]
+]

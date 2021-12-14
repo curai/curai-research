@@ -1,7 +1,11 @@
 # Curai Health Machine Learning Research
 
+<p align="center">
+  <img width="700" src="./curai_logo.png">
+</p>
+
 This repository contains code released by
-[Curai Health](https://curaihealth.com/).
+[Curai Health](https://curaihealth.com/) ([Tech Blog](https://medium.com/curai-tech)).
 
 * [MEDCOD](https://github.com/curai/curai-research/tree/main/MEDCOD): Code and example data for for [MEDCOD: A Medically-Accurate, Emotive, Diverse, and Controllable Dialog System](https://arxiv.org/abs/2111.09381) (Accepted at ML4H2021)
 

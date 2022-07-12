@@ -1,4 +1,4 @@
-import os, re, csv, json, random, argparse, collections
+import os, re, csv, json, torch, random, argparse, collections
 from os.path import join as pjoin
 
 import pdb
@@ -97,6 +97,7 @@ if __name__ == "__main__":
     np.random.seed(args.random_seed)
     random.seed(args.random_seed)
 
+    args.cuda = True if torch.cuda.is_available() else False
 
     run_hnlp(args)
 

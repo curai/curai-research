@@ -63,7 +63,7 @@ class Optimizer(object):
             if p.requires_grad:
                 self.params.append(p)
 
-        if self.method == 'adam':
+        if self.method == 'ADAM':
             self.optimizer = optim.Adam(self.params, lr=self.learning_rate,
                                         betas=self.betas, eps=1e-9)
         else:

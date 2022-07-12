@@ -1,7 +1,7 @@
 import os, re, csv, json, torch, random, argparse, collections
 from os.path import join as pjoin
 import numpy as np
-from run_hnlp import run_hnlp
+from .run_hnlp import run_hnlp
 
 import pdb
 

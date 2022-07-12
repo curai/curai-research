@@ -59,6 +59,10 @@ def pretrain_entity_embeddings(args, data_path):
     Pretrain the concept embeddings using supervised contrastive learning
     """
 
+    save_dir = pjoin(args.checkpoints_dir, 'encoders')
+    if not os.path.exists(save_dir):
+        os.makedirs(save_dir)
+
     tokenizer = AutoTokenizer.from_pretrained(args.encoder_name)
 
     model = EncoderWrapper(args)
@@ -162,10 +166,10 @@ def pretrain_entity_embeddings(args, data_path):
         if diff > prev_best:
             prev_best = diff
             save_name = f"hnlp_{args.encoder}_lr{args.lr}_epoch{epoch+1}_{round(diff, 3)}.pt"
-            ckpt_path = pjoin(args.checkpoints_dir, 'encoders', save_name)
-            torch.save(model.encoder.state_dict(), ckpt_path)
+            save_path = pjoin(save_dir, save_name)
+            torch.save(model.encoder.state_dict(), save_path)
             print(diff)
-            best_ckpt = ckpt_path
+            best_ckpt = save_path
 
     return best_ckpt
 

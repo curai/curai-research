@@ -17,7 +17,7 @@ from utils.logger import init_logger
 from utils.helpers import pairwise_cosine_similarity, merge_subword_tokens, add_name_ent
 from utils.data import HNLPContrastiveNERDataset
 from utils.visualize import generate_heatmap, visualize_entity_synonyms
-from models.contrastive_classifier import ContrastiveEntityExtractor
+from models.contrastive_classifier import ContrastiveEntityExtractor, EncoderWrapper
 from models.optimizers import build_optim
 from models.losses import SupConLoss
 from transformers import AutoTokenizer, AutoModel

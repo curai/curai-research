@@ -472,7 +472,7 @@ def evaluate_hnlp_ner(model, tokenizer, data_path, ignore_cls=True, baseline=Non
     return results
 
 def run_hnlp(args):
-
+    args.cuda = True if torch.cuda.is_available() else False
 
     # Pretrain entity embeddings
     hnlp_data_path = 'resources/hNLP/hNLP-train-test-seen-unseen.json'

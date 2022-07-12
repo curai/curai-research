@@ -89,8 +89,6 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    args.cuda = True if torch.cuda.is_available() else False
-
     args.encoder_name = encoder_names[args.encoder]
 
     os.makedirs(args.checkpoints_dir, exist_ok=True)

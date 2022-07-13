@@ -513,7 +513,7 @@ def run_hnlp(args):
         id2synonyms,
         train_set,
         ckpt_dir,
-        test_set=test_set,
+        # test_set=test_set,
         top_k_ckpts=3,
         load_from=best_ckpt_path,
     )

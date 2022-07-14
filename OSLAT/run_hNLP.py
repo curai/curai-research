@@ -584,7 +584,6 @@ def train_classifier(args, model, tokenizer, id2synonyms, train_set, ckpt_save_p
             test_summary = f"Top-1 Recall: {round(recalls[0]/len(test_set), 4)}, \
                              Top-5 Recall: {round(recalls[1]/len(test_set), 4)}, \
                              Top-10 Recall: {round(recalls[2]/len(test_set), 4)}"
-            test_summary = f"(Epoch {epoch + 1}) Loss: {epoch_loss} LR: {lr}"
             logger.info(test_summary)
             print(test_summary)
 

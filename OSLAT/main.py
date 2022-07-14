@@ -61,7 +61,7 @@ if __name__ == "__main__":
     parser.add_argument('-freeze_weights', type=str, default='none', choices=['encoder', 'attention'])
 
     # Classifier layer
-    parser.add_argument('-use_classification_loss', action='store_true', default=False)
+    parser.add_argument('-use_classification_loss', action='store_true', default=True)
     parser.add_argument('-classifier_hidden_size', type=int, default=128)
     parser.add_argument('-normalize_final_hidden', action='store_true', default=False)
     parser.add_argument('-share_classifier', action='store_true', default=False)

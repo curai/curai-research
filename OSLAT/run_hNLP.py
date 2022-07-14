@@ -475,17 +475,139 @@ def evaluate_hnlp_ner(model, tokenizer, data_path, ignore_cls=True, baseline=Non
         print(f"(Macro) P: {_macro_precision}, R: {_macro_recall}, F: {_macro_f1}")
     return results
 
+def train_classifier(args, model, tokenizer, id2synonyms, train_set, ckpt_save_path, test_set=None):
+    logger = init_logger(f'classification_training_hnlp.log')
+    optimizer = build_optim(args, model)
+
+    if args.cuda:
+        model = model.to('cuda')
+
+    device = next(model.parameters()).device
+
+    cls_criteria = torch.nn.BCEWithLogitsLoss(reduction='mean')
+    max_positives = 20
+
+    for epoch in range(args.epochs):
+        epoch_loss = 0
+        model.train()
+
+        # Shuffle the training set index for each epoch
+        shuffled_indices = sorted(range(len(train_set)), key=lambda k: random.random())
+
+        for data_idx in tqdm(shuffled_indices):
+
+            example = train_set[data_idx]
+
+            text_input = {k: v.to(device) for k, v in example['text_inputs'].items()}
+            batch_synonym_inputs = []
+
+            for synonym_inputs in example['synonym_inputs']:
+                if len(synonym_inputs['input_ids']) > max_positives:
+                    indices = random.sample(range(len(synonym_inputs['input_ids'])), max_positives)
+                    batch_synonym_inputs.append({k: v[indices].to(device) for k, v in synonym_inputs.items()})
+                else:
+                    batch_synonym_inputs.append({k: v.to(device) for k, v in synonym_inputs.items()})
+
+            # Sampling for negative training examples
+            sampled_ids = random.choices(list(id2synonyms.keys()), k=args.num_negatives)
+            negative_names = [random.sample(id2synonyms[concept_id], 1)[0] for concept_id in sampled_ids]
+            negative_inputs = tokenizer(negative_names, return_tensors="pt", padding=True)
+            negative_inputs = {k: v.to(device) for k, v in negative_inputs.items()}
+            batch_synonym_inputs.append(negative_inputs)
+
+            output = model(text_input, batch_synonym_inputs)
+
+            loss = 0.
+            for input_idx, synonym_inputs in enumerate(batch_synonym_inputs[:-1]):
+                n_pos = min(max_positives, len(synonym_inputs['input_ids']))
+                n_neg = args.num_negatives
+                labels = torch.tensor([1 for _ in range(n_pos)] + [0 for _ in range(n_neg)]).to(device)
+
+                pos = output['logits'][input_idx]
+                neg = output['logits'][-1]
+                logits = torch.cat((pos, neg), dim=-1).squeeze(0)
+                loss += cls_criteria(logits, labels.float())
+
+            epoch_loss += loss.item()
+            loss = loss / len(example['synonym_inputs'])
+            loss.backward()
+
+            if (data_idx + 1) % 32 == 0:
+                optimizer.step()
+                model.zero_grad()
+
+        
+        lr = optimizer.optimizer.param_groups[0]['lr']
+        train_summary = f"(Epoch {epoch + 1}) Loss: {epoch_loss} LR: {lr}"
+        logger.info(train_summary)
+        print(train_summary)
+
+        if test_set:
+            recalls = [0, 0, 0]
+            model.eval()
+            id2vectors = {}
+
+            # Precompute entity embeddings
+            for concept_id, synonyms in id2synonyms.items():
+                synonym_inputs = tokenizer(synonyms, return_tensors="pt", padding=True)
+                synonym_inputs = {k: v.to(device) for k, v in synonym_inputs.items()}
+                with torch.no_grad():
+                    synonym_vectors = model.encoder(**synonym_inputs)[0][:, 0, :].detach()
+                id2vectors[concept_id] = synonym_vectors
+
+
+            for example in tqdm(test_set):
+                probs = []
+                with torch.no_grad():
+                    text_input = {k: v.to(device) for k, v in example['text_inputs'].items()}
+                    input_hidden = model.encoder(**text_input)[0]
+                    for concept_id, synonym_vectors in id2vectors.items():
+                        concept_representations = model.attention_layer(
+                            synonym_vectors,
+                            input_hidden,
+                            attention_mask=text_input['attention_mask'],
+                        )[0]
+                        logits = model.classifier(concept_representations).squeeze(-1)
+                        probs.append((concept_id, logits.mean().item()))
+
+                gt_concept = example['entity_ids'][0]
+                sorted_probs = sorted(probs, key=lambda x: x[1], reverse=True)
+                sorted_ids = [prob[0] for prob in sorted_probs]
+                pdb.set_trace()
+                if gt_concept in sorted_ids[:1]:
+                    recalls[0] += 1
+                if gt_concept in sorted_ids[:5]:
+                    recalls[1] += 1
+                if gt_concept in sorted_ids[:10]:
+                    recalls[2] += 1
+
+
+            test_summary = f"Top-1 Recall: {round(recalls[0]/len(test_set), 4)}, \
+                             Top-5 Recall: {round(recalls[1]/len(test_set), 4)}, \
+                             Top-10 Recall: {round(recalls[2]/len(test_set), 4)}"
+            test_summary = f"(Epoch {epoch + 1}) Loss: {epoch_loss} LR: {lr}"
+            logger.info(test_summary)
+            print(test_summary)
+
+        
+
+    # save_name = f"{args.encoder}_lr{args.lr}_epoch{args.epoch}.pth"
+    # ckpt_save_path = pjoin(ckpt_dir, save_name)
+    torch.save(model.state_dict(), ckpt_save_path)
+    return model
+
 def run_hnlp(args):
 
     # Pretrain entity embeddings
     hnlp_data_path = 'resources/hNLP/hNLP-train-test-seen-unseen.json'
-    best_ckpt_path = pretrain_entity_embeddings(args, hnlp_data_path)
+    # best_ckpt_path = pretrain_entity_embeddings(args, hnlp_data_path)
 
     # Initialize Neural Model
     tokenizer = AutoTokenizer.from_pretrained(args.encoder_name)
     model = ContrastiveEntityExtractor(args)
 
     if args.cuda:
+
         model = model.to('cuda')
 
     device = next(model.parameters()).device
@@ -502,35 +624,51 @@ def run_hnlp(args):
     train_set = HNLPContrastiveNERDataset(data_split['TRAIN'], tokenizer, id2synonyms)
     test_set = HNLPContrastiveNERDataset(data_split['TEST'], tokenizer, id2synonyms)
 
+    contrastive_ckpt_dir = pjoin(args.checkpoints_dir, 'contrastive_ner_hnlp')
+    os.makedirs(contrastive_ckpt_dir, exist_ok=True)
 
-    ckpt_dir = pjoin(args.checkpoints_dir, 'contrastive_ner_hnlp')
-    os.makedirs(ckpt_dir, exist_ok=True)
+    ckpt_save_path = pjoin(contrastive_ckpt_dir, f"{args.encoder}_lr{args.lr}_epoch{args.epochs}.pth")
+    if not os.path.isfile(ckpt_save_path):
+        model = train_contrastive(
+            args,
+            model,
+            tokenizer,
+            id2synonyms,
+            train_set,
+            ckpt_save_path,
+            top_k_ckpts=3,
+            load_from=best_ckpt_path,
+        )
+    else:
+        model.load_state_dict(torch.load(ckpt_save_path, map_location=device), strict=False)
 
-    model = train_contrastive(
+    classifier_ckpt_dir = pjoin(args.checkpoints_dir, 'retrieval_classifier')
+    os.makedirs(classifier_ckpt_dir, exist_ok=True)
+    ckpt_save_path = pjoin(classifier_ckpt_dir, f"{args.encoder}_lr{args.lr}_epoch{args.epochs}.pth")
+    model = train_classifier(
         args,
         model,
         tokenizer,
         id2synonyms,
         train_set,
-        ckpt_dir,
+        ckpt_save_path,
         test_set=test_set,
-        top_k_ckpts=3,
-        load_from=best_ckpt_path,
     )
+
 
     """
     Evaluation on hNLP dataset
     """
 
     # print("hNLP Results ---------------------------------------")
-    print("(Single-Span) hNLP Results for SEEN concepts:")
-    evaluate_hnlp_ner(model, tokenizer, hnlp_data_path, baseline='fuzzy', concept_ids=seen_concepts, multi_span=False)
-    print("(Single-Span) hNLP Results for UNSEEN concepts:")
-    evaluate_hnlp_ner(model, tokenizer, hnlp_data_path, baseline='fuzzy', concept_ids=unseen_concepts, multi_span=False)
-    print("(Multi-Span) hNLP Results for SEEN concepts:")
-    evaluate_hnlp_ner(model, tokenizer, hnlp_data_path, baseline='fuzzy', concept_ids=seen_concepts, multi_span=True)
-    print("(Multi-Span) hNLP Results for UNSEEN concepts:")
-    evaluate_hnlp_ner(model, tokenizer, hnlp_data_path, baseline='fuzzy', concept_ids=unseen_concepts, multi_span=True)
+    # print("(Single-Span) hNLP Results for SEEN concepts:")
+    # evaluate_hnlp_ner(model, tokenizer, hnlp_data_path, baseline='fuzzy', concept_ids=seen_concepts, multi_span=False)
+    # print("(Single-Span) hNLP Results for UNSEEN concepts:")
+    # evaluate_hnlp_ner(model, tokenizer, hnlp_data_path, baseline='fuzzy', concept_ids=unseen_concepts, multi_span=False)
+    # print("(Multi-Span) hNLP Results for SEEN concepts:")
+    # evaluate_hnlp_ner(model, tokenizer, hnlp_data_path, baseline='fuzzy', concept_ids=seen_concepts, multi_span=True)
+    # print("(Multi-Span) hNLP Results for UNSEEN concepts:")
+    # evaluate_hnlp_ner(model, tokenizer, hnlp_data_path, baseline='fuzzy', concept_ids=unseen_concepts, multi_span=True)
 
 
 

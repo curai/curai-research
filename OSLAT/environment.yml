@@ -1,4 +1,4 @@
-name: oslat
+name: curai_oslat
 channels:
   - huggingface
   - pytorch

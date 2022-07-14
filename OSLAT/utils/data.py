@@ -42,6 +42,7 @@ class HNLPContrastiveNERDataset(Dataset):
                     'id': example['id'],
                     'text_inputs': text_inputs,
                     'synonym_inputs': synonym_inputs,
+                    'entity_ids': [entity[0] for entity in example['entities']],
                 })
 
     def __getitem__(self, index):

@@ -653,8 +653,6 @@ def run_hnlp(args):
         train_set,
         ckpt_save_path,
         test_set=test_set,
-        top_k_ckpts=3,
-        load_from=best_ckpt_path,
     )
 
 

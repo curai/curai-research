@@ -573,7 +573,6 @@ def train_classifier(args, model, tokenizer, id2synonyms, train_set, ckpt_save_p
                 gt_concept = example['entity_ids'][0]
                 sorted_probs = sorted(probs, key=lambda x: x[1], reverse=True)
                 sorted_ids = [prob[0] for prob in sorted_probs]
-                pdb.set_trace()
                 if gt_concept in sorted_ids[:1]:
                     recalls[0] += 1
                 if gt_concept in sorted_ids[:5]:

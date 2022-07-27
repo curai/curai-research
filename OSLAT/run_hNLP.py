@@ -622,7 +622,7 @@ def run_hnlp(args):
     train_set = HNLPContrastiveNERDataset(data_split['TRAIN'], tokenizer, id2synonyms)
     test_set = HNLPContrastiveNERDataset(data_split['TEST'], tokenizer, id2synonyms)
 
-    if wo_pretraining:
+    if args.wo_pretraining:
         contrastive_ckpt_dir = pjoin(args.checkpoints_dir, 'contrastive_ner_hnlp_no_pretrain')
     else:
         contrastive_ckpt_dir = pjoin(args.checkpoints_dir, 'contrastive_ner_hnlp')
@@ -646,9 +646,9 @@ def run_hnlp(args):
 
     classifier_ckpt_dir = pjoin(args.checkpoints_dir, 'retrieval_classifier')
 
-    if wo_pretraining:
+    if args.wo_pretraining:
         classifier_ckpt_dir += '_no_pretrain'
-    if wo_contrastive:
+    if args.wo_contrastive:
         classifier_ckpt_dir += '_no_contrastive'
 
     os.makedirs(classifier_ckpt_dir, exist_ok=True)

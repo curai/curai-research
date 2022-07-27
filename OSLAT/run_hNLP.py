@@ -599,6 +599,8 @@ def run_hnlp(args):
 
     if not args.wo_pretraining:
         best_ckpt_path = pretrain_entity_embeddings(args, hnlp_data_path)
+    else:
+        best_ckpt_path = None
 
     # Initialize Neural Model
     tokenizer = AutoTokenizer.from_pretrained(args.encoder_name)

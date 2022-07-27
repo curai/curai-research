@@ -1,7 +1,7 @@
 # Curai Health Machine Learning Research
 
 <p align="center">
-  <img width="700" src="./curai_logo.png">
+  <img width="750" src="./curai-logo.png">
 </p>
 
 This repository contains code released by

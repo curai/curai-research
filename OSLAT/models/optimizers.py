@@ -116,7 +116,7 @@ def build_optim(args, model, checkpoint=None):
             for state in optim.optimizer.state.values():
                 for k, v in state.items():
                     if torch.is_tensor(v):
-                        state[k] = v.to(device)
+                        state[k] = v.to(args.device)
 
         if (optim.method == 'adam') and (len(optim.optimizer.state) < 1):
             raise RuntimeError(

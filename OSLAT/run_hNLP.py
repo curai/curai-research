@@ -174,7 +174,7 @@ def pretrain_entity_embeddings(args, data_path):
     return best_ckpt
 
 
-def train_contrastive(args, model, tokenizer, id2synonyms, train_set, ckpt_dir, top_k_ckpts=3, load_from=None):
+def train_contrastive(args, model, tokenizer, id2synonyms, train_set, save_path, top_k_ckpts=3, load_from=None):
     """
     Train the NER model using the supervised contrastive objective
     """
@@ -278,9 +278,7 @@ def train_contrastive(args, model, tokenizer, id2synonyms, train_set, ckpt_dir, 
         logger.info(train_summary)
         print(train_summary)
 
-    save_name = f"{args.encoder}_lr{args.lr}_epoch{epoch}.pth"
-    ckpt_save_path = pjoin(ckpt_dir, save_name)
-    torch.save(model.state_dict(), ckpt_save_path)
+    torch.save(model.state_dict(), save_path)
     return model
 
 
@@ -598,7 +596,9 @@ def run_hnlp(args):
 
     # Pretrain entity embeddings
     hnlp_data_path = 'resources/hNLP/hNLP-train-test-seen-unseen.json'
-    # best_ckpt_path = pretrain_entity_embeddings(args, hnlp_data_path)
+
+    if not args.wo_pretraining:
+        best_ckpt_path = pretrain_entity_embeddings(args, hnlp_data_path)
 
     # Initialize Neural Model
     tokenizer = AutoTokenizer.from_pretrained(args.encoder_name)
@@ -622,11 +622,15 @@ def run_hnlp(args):
     train_set = HNLPContrastiveNERDataset(data_split['TRAIN'], tokenizer, id2synonyms)
     test_set = HNLPContrastiveNERDataset(data_split['TEST'], tokenizer, id2synonyms)
 
-    contrastive_ckpt_dir = pjoin(args.checkpoints_dir, 'contrastive_ner_hnlp')
+    if wo_pretraining:
+        contrastive_ckpt_dir = pjoin(args.checkpoints_dir, 'contrastive_ner_hnlp_no_pretrain')
+    else:
+        contrastive_ckpt_dir = pjoin(args.checkpoints_dir, 'contrastive_ner_hnlp')
+
     os.makedirs(contrastive_ckpt_dir, exist_ok=True)
 
     ckpt_save_path = pjoin(contrastive_ckpt_dir, f"{args.encoder}_lr{args.lr}_epoch{args.epochs}.pth")
-    if not os.path.isfile(ckpt_save_path):
+    if not args.wo_contrastive and not os.path.isfile(ckpt_save_path):
         model = train_contrastive(
             args,
             model,
@@ -641,6 +645,12 @@ def run_hnlp(args):
         model.load_state_dict(torch.load(ckpt_save_path, map_location=device), strict=False)
 
     classifier_ckpt_dir = pjoin(args.checkpoints_dir, 'retrieval_classifier')
+
+    if wo_pretraining:
+        classifier_ckpt_dir += '_no_pretrain'
+    if wo_contrastive:
+        classifier_ckpt_dir += '_no_contrastive'
+
     os.makedirs(classifier_ckpt_dir, exist_ok=True)
     ckpt_save_path = pjoin(classifier_ckpt_dir, f"{args.encoder}_lr{args.lr}_epoch{args.epochs}.pth")
     model = train_classifier(

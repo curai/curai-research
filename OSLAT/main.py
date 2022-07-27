@@ -89,6 +89,10 @@ if __name__ == "__main__":
     parser.add_argument('-random_seed', type=int, default=0)
     parser.add_argument('-folds', type=int, nargs='+', default=None)
 
+    # Ablation Experiments
+    parser.add_argument('-wo_pretraining', action='store_true')
+    parser.add_argument('-wo_contrastive', action='store_true')
+
     args = parser.parse_args()
 
     args.encoder_name = encoder_names[args.encoder]

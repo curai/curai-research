@@ -122,7 +122,7 @@ def pretrain_entity_embeddings(args, data_path):
                 neg_output = model(neg_inputs)
 
                 embeddings = torch.cat((pos_output, neg_output))
-                labels = torch.tensor([1 for _ in range(len(pos_output))] + [0 for _ in range(len(neg_output))]).cuda()
+                labels = torch.tensor([1 for _ in range(len(pos_output))] + [0 for _ in range(len(neg_output))]).to(device)
                 loss = contrastive_criteria(embeddings.unsqueeze(1), labels=labels)
                 pbar.set_description(f"Loss: {round(loss.item(), 3)}")
                 loss.backward()

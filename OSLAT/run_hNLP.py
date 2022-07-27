@@ -67,10 +67,10 @@ def pretrain_entity_embeddings(args, data_path):
 
     model = EncoderWrapper(args)
 
-    if args.cuda:
-        model = model.to('cuda')
+    device = args.device
 
-    device = next(model.parameters()).device
+    model = model.to(device)
+
 
     with open(data_path, 'r') as f:
         data = json.load(f)
@@ -182,10 +182,8 @@ def train_contrastive(args, model, tokenizer, id2synonyms, train_set, save_path,
     logger = init_logger(f'contrastive_pretraining_ner_hnlp.log')
     optimizer = build_optim(args, model)
 
-    if args.cuda:
-        model = model.to('cuda')
-
-    device = next(model.parameters()).device
+    device = args.device
+    model = model.to(device)
 
     # Load pre-pretrained encoder weights on entities
     if load_from != None:
@@ -477,10 +475,9 @@ def train_classifier(args, model, tokenizer, id2synonyms, train_set, ckpt_save_p
     logger = init_logger(f'classification_training_hnlp.log')
     optimizer = build_optim(args, model)
 
-    if args.cuda:
-        model = model.to('cuda')
+    device = args.device
 
-    device = next(model.parameters()).device
+    model = model.to(device)
 
     cls_criteria = torch.nn.BCEWithLogitsLoss(reduction='mean')
     max_positives = 20
@@ -606,13 +603,7 @@ def run_hnlp(args):
     tokenizer = AutoTokenizer.from_pretrained(args.encoder_name)
     model = ContrastiveEntityExtractor(args)
 
-    if args.cuda:
-
-        model = model.to('cuda')
-
-    device = next(model.parameters()).device
-
-
+    model = model.to(args.device)
 
     with open(hnlp_data_path) as f:
         json_data = json.load(f)
@@ -644,7 +635,7 @@ def run_hnlp(args):
             load_from=best_ckpt_path,
         )
     else:
-        model.load_state_dict(torch.load(ckpt_save_path, map_location=device), strict=False)
+        model.load_state_dict(torch.load(ckpt_save_path, map_location=args.device), strict=False)
 
     classifier_ckpt_dir = pjoin(args.checkpoints_dir, 'retrieval_classifier')
 

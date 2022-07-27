@@ -93,6 +93,8 @@ if __name__ == "__main__":
     parser.add_argument('-wo_pretraining', action='store_true')
     parser.add_argument('-wo_contrastive', action='store_true')
 
+    parser.add_argument('-device', type=int)
+
     args = parser.parse_args()
 
     args.encoder_name = encoder_names[args.encoder]
@@ -103,7 +105,7 @@ if __name__ == "__main__":
     np.random.seed(args.random_seed)
     random.seed(args.random_seed)
 
-    args.cuda = True if torch.cuda.is_available() else False
+    args.device = torch.device(f'cuda:{args.device}') if torch.cuda.is_available() else 'cpu'
 
     run_hnlp(args)
 

@@ -625,19 +625,20 @@ def run_hnlp(args):
     os.makedirs(contrastive_ckpt_dir, exist_ok=True)
 
     ckpt_save_path = pjoin(contrastive_ckpt_dir, f"{args.encoder}_lr{args.lr}_epoch{args.epochs}.pth")
-    if not args.wo_contrastive and not os.path.isfile(ckpt_save_path):
-        model = train_contrastive(
-            args,
-            model,
-            tokenizer,
-            id2synonyms,
-            train_set,
-            ckpt_save_path,
-            top_k_ckpts=3,
-            load_from=best_ckpt_path,
-        )
-    else:
-        model.load_state_dict(torch.load(ckpt_save_path, map_location=args.device), strict=False)
+    if not args.wo_contrastive:
+        if os.path.isfile(ckpt_save_path):
+            model = train_contrastive(
+                args,
+                model,
+                tokenizer,
+                id2synonyms,
+                train_set,
+                ckpt_save_path,
+                top_k_ckpts=3,
+                load_from=best_ckpt_path,
+            )
+        else:
+            model.load_state_dict(torch.load(ckpt_save_path, map_location=args.device), strict=False)
 
     classifier_ckpt_dir = pjoin(args.checkpoints_dir, 'retrieval_classifier_concat')
 

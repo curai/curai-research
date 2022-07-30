@@ -60,6 +60,11 @@ if __name__ == "__main__":
 
     parser.add_argument('-freeze_weights', type=str, default='none', choices=['encoder', 'attention'])
 
+    # Linear Projection Layer
+    parser.add_argument('-use_projection_head', action='store_true', help="Apply a linear projection head on top of attention output", default=True)
+    parser.add_argument('-projection_hidden_size', type=int, default=128)
+    parser.add_argument('-projection_output_size', type=int, default=128)
+
     # Classifier layer
     parser.add_argument('-use_classification_loss', action='store_true', default=True)
     parser.add_argument('-classifier_hidden_size', type=int, default=128)
@@ -89,6 +94,8 @@ if __name__ == "__main__":
     parser.add_argument('-random_seed', type=int, default=0)
     parser.add_argument('-folds', type=int, nargs='+', default=None)
 
+    parser.add_argument('-append_query', action='store_true', help="Append query vector to the attention output")
+
     # Ablation Experiments
     parser.add_argument('-wo_pretraining', action='store_true')
     parser.add_argument('-wo_contrastive', action='store_true')
@@ -104,7 +111,7 @@ if __name__ == "__main__":
     torch.manual_seed(args.random_seed)
     np.random.seed(args.random_seed)
     random.seed(args.random_seed)
-
+    
     args.device = torch.device(f'cuda:{args.device}') if torch.cuda.is_available() else 'cpu'
 
     run_hnlp(args)

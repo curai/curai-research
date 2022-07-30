@@ -596,7 +596,8 @@ def run_hnlp(args):
     hnlp_data_path = 'resources/hNLP/hNLP-train-test-seen-unseen.json'
 
     if not args.wo_pretraining:
-        best_ckpt_path = pretrain_entity_embeddings(args, hnlp_data_path)
+        # best_ckpt_path = pretrain_entity_embeddings(args, hnlp_data_path)
+        best_ckpt_path = pjoin('checkpoints', 'encoders', 'hnlp_biobert_lr0.0002_epoch18_0.17.pt')
     else:
         best_ckpt_path = None
 
@@ -617,9 +618,9 @@ def run_hnlp(args):
     test_set = HNLPContrastiveNERDataset(data_split['TEST'], tokenizer, id2synonyms)
 
     if args.wo_pretraining:
-        contrastive_ckpt_dir = pjoin(args.checkpoints_dir, 'contrastive_ner_hnlp_no_pretrain')
+        contrastive_ckpt_dir = pjoin(args.checkpoints_dir, 'contrastive_ner_hnlp_concat_no_pretrain')
     else:
-        contrastive_ckpt_dir = pjoin(args.checkpoints_dir, 'contrastive_ner_hnlp')
+        contrastive_ckpt_dir = pjoin(args.checkpoints_dir, 'contrastive_ner_concat_hnlp')
 
     os.makedirs(contrastive_ckpt_dir, exist_ok=True)
 
@@ -638,7 +639,7 @@ def run_hnlp(args):
     else:
         model.load_state_dict(torch.load(ckpt_save_path, map_location=args.device), strict=False)
 
-    classifier_ckpt_dir = pjoin(args.checkpoints_dir, 'retrieval_classifier')
+    classifier_ckpt_dir = pjoin(args.checkpoints_dir, 'retrieval_classifier_concat')
 
     if args.wo_pretraining:
         classifier_ckpt_dir += '_no_pretrain'

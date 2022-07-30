@@ -626,7 +626,7 @@ def run_hnlp(args):
 
     ckpt_save_path = pjoin(contrastive_ckpt_dir, f"{args.encoder}_lr{args.lr}_epoch{args.epochs}.pth")
     if not args.wo_contrastive:
-        if os.path.isfile(ckpt_save_path):
+        if not os.path.isfile(ckpt_save_path):
             model = train_contrastive(
                 args,
                 model,

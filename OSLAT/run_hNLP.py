@@ -563,6 +563,10 @@ def train_classifier(args, model, tokenizer, id2synonyms, train_set, ckpt_save_p
                             input_hidden,
                             attention_mask=text_input['attention_mask'],
                         )[0]
+
+                        if self.append_query:
+                            concept_representations = torch.cat((concept_representations, synonym_vectors.unsqueeze(0)), dim=-1)
+                        
                         logits = model.classifier(concept_representations).squeeze(-1)
                         probs.append((concept_id, logits.mean().item()))
 

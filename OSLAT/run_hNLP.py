@@ -660,6 +660,7 @@ def run_hnlp(args):
             )
         else:
             model.load_state_dict(torch.load(ckpt_save_path, map_location=args.device), strict=False)
+            print(f"Loaded Checkpoints at \"{ckpt_save_path}\"")
 
     classifier_ckpt_dir = pjoin(args.checkpoints_dir, 'classifier')
     if args.append_query:

@@ -101,7 +101,7 @@ if __name__ == "__main__":
     parser.add_argument('-wo_contrastive', action='store_true')
 
     # Classifier
-    parser.add_argument('-classification_loss', default='ce', type=str, choices=['bce', 'focal'])
+    parser.add_argument('-classification_loss', default='bce', type=str, choices=['bce', 'focal'])
     parser.add_argument('-freeze_weights', action='store_true')
 
     # Whether to run baseline models

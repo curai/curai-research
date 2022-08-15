@@ -663,12 +663,15 @@ def run_hnlp(args):
 
     classifier_ckpt_dir = pjoin(args.checkpoints_dir, 'classifier')
     if args.append_query:
-        classifier_ckpt_dir += '_concat_query'
+        classifier_ckpt_dir += '_concatquery'
 
     if args.wo_pretraining:
-        classifier_ckpt_dir += '_no_pretrain'
+        classifier_ckpt_dir += '_nopretrain'
     if args.wo_contrastive:
-        classifier_ckpt_dir += '_no_contrastive'
+        classifier_ckpt_dir += '_nocontrastive'
+
+    if args.classification_loss == 'focal':
+        classifier_ckpt_dir += '_focal'
 
     os.makedirs(classifier_ckpt_dir, exist_ok=True)
     ckpt_save_path = pjoin(classifier_ckpt_dir, f"{args.encoder}_lr{args.lr}_epoch{args.epochs}.pth")

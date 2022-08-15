@@ -20,6 +20,7 @@ from utils.visualize import generate_heatmap, visualize_entity_synonyms
 from models.contrastive_classifier import ContrastiveEntityExtractor, EncoderWrapper
 from models.optimizers import build_optim
 from models.losses import SupConLoss
+from models.focal_loss import BinaryFocalLossWithLogits
 from transformers import AutoTokenizer, AutoModel
 from itertools import combinations
 from tqdm import tqdm
@@ -480,7 +481,17 @@ def train_classifier(args, model, tokenizer, id2synonyms, train_set, ckpt_save_p
 
     model = model.to(device)
 
-    cls_criteria = torch.nn.BCEWithLogitsLoss(reduction='mean')
+    if args.freeze_weights:
+        for param in model.encoder.parameters():
+            param.requires_grad = False
+        for param in model.attention_layer.parameters():
+            param.requires_grad = False            
+
+    if args.classification_loss == 'bce':
+        cls_criteria = torch.nn.BCEWithLogitsLoss(reduction='mean')
+    elif args.classification_loss == 'focal':
+        cls_criteria = BinaryFocalLossWithLogits(reduction='mean')
+    
     max_positives = 20
 
     for epoch in range(args.epochs):
@@ -522,7 +533,7 @@ def train_classifier(args, model, tokenizer, id2synonyms, train_set, ckpt_save_p
                 pos = output['logits'][input_idx]
                 neg = output['logits'][-1]
                 logits = torch.cat((pos, neg), dim=-1).squeeze(0)
-                loss += cls_criteria(logits, labels.float())
+                loss += cls_criteria(logits.unsqueeze(0), labels.unsqueeze(0).float())
 
             epoch_loss += loss.item()
             loss = loss / len(example['synonym_inputs'])
@@ -556,19 +567,25 @@ def train_classifier(args, model, tokenizer, id2synonyms, train_set, ckpt_save_p
                 probs = []
                 with torch.no_grad():
                     text_input = {k: v.to(device) for k, v in example['text_inputs'].items()}
+                    attention_masks = text_input['attention_mask']
                     input_hidden = model.encoder(**text_input)[0]
+
+                    if model.ignore_cls:
+                        input_hidden = input_hidden[:, 1:, :]
+                        attention_masks = attention_masks[:, 1:]
+
                     for concept_id, synonym_vectors in id2vectors.items():
                         concept_representations = model.attention_layer(
                             synonym_vectors,
                             input_hidden,
-                            attention_mask=text_input['attention_mask'],
+                            attention_mask=attention_masks,
                         )[0]
 
                         if args.append_query:
                             concept_representations = torch.cat((concept_representations, synonym_vectors.unsqueeze(0)), dim=-1)
 
                         logits = model.classifier(concept_representations).squeeze(-1)
-                        probs.append((concept_id, logits.mean().item()))
+                        probs.append((concept_id, logits.max().item()))
 
                 gt_concept = example['entity_ids'][0]
                 sorted_probs = sorted(probs, key=lambda x: x[1], reverse=True)
@@ -644,7 +661,9 @@ def run_hnlp(args):
         else:
             model.load_state_dict(torch.load(ckpt_save_path, map_location=args.device), strict=False)
 
-    classifier_ckpt_dir = pjoin(args.checkpoints_dir, 'retrieval_classifier_concat')
+    classifier_ckpt_dir = pjoin(args.checkpoints_dir, 'classifier')
+    if args.append_query:
+        classifier_ckpt_dir += '_concat_query'
 
     if args.wo_pretraining:
         classifier_ckpt_dir += '_no_pretrain'

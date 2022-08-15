@@ -58,7 +58,7 @@ if __name__ == "__main__":
     parser.add_argument('-entity_embedding_method', type=str, choices=['name', 'max', 'mean'], default='name')
     parser.add_argument('-pooling_method', type=str, default='cls', choices=['max', 'mean', 'cls'])
 
-    parser.add_argument('-freeze_weights', type=str, default='none', choices=['encoder', 'attention'])
+    # parser.add_argument('-freeze_weights', type=str, default='none', choices=['encoder', 'attention'])
 
     # Linear Projection Layer
     parser.add_argument('-use_projection_head', action='store_true', help="Apply a linear projection head on top of attention output", default=True)
@@ -67,7 +67,7 @@ if __name__ == "__main__":
 
     # Classifier layer
     parser.add_argument('-use_classification_loss', action='store_true', default=True)
-    parser.add_argument('-classifier_hidden_size', type=int, default=128)
+    parser.add_argument('-classifier_hidden_size', type=int, default=200)
     parser.add_argument('-normalize_final_hidden', action='store_true', default=False)
     parser.add_argument('-share_classifier', action='store_true', default=False)
 
@@ -100,6 +100,13 @@ if __name__ == "__main__":
     parser.add_argument('-wo_pretraining', action='store_true')
     parser.add_argument('-wo_contrastive', action='store_true')
 
+    # Classifier
+    parser.add_argument('-classification_loss', default='ce', type=str, choices=['bce', 'focal'])
+    parser.add_argument('-freeze_weights', action='store_true')
+
+    # Whether to run baseline models
+    parser.add_argument('-model', default='oslat', type=str, choices=['oslat', 'sap-bert'])
+
     parser.add_argument('-device', type=int, default=0)
 
     args = parser.parse_args()
@@ -114,7 +121,10 @@ if __name__ == "__main__":
     
     args.device = torch.device(f'cuda:{args.device}') if torch.cuda.is_available() else 'cpu'
 
-    run_hnlp(args)
+    if args.model == 'oslat':
+        run_hnlp(args)
+    # else:
+    #     run_baselines(args)
 
 
 

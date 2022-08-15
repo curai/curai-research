@@ -638,10 +638,13 @@ def run_hnlp(args):
     train_set = HNLPContrastiveNERDataset(data_split['TRAIN'], tokenizer, id2synonyms)
     test_set = HNLPContrastiveNERDataset(data_split['TEST'], tokenizer, id2synonyms)
 
+
+    contrastive_ckpt_dir = pjoin(args.checkpoints_dir, 'contrastive_ner_hnlp')
+
     if args.wo_pretraining:
-        contrastive_ckpt_dir = pjoin(args.checkpoints_dir, 'contrastive_ner_hnlp_concat_no_pretrain')
-    else:
-        contrastive_ckpt_dir = pjoin(args.checkpoints_dir, 'contrastive_ner_concat_hnlp')
+        contrastive_ckpt_dir += '_nopretrain'
+    if args.append_query:
+        contrastive_ckpt_dir += '_concatquery'
 
     os.makedirs(contrastive_ckpt_dir, exist_ok=True)
 

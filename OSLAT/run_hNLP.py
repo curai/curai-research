@@ -673,6 +673,9 @@ def run_hnlp(args):
     if args.classification_loss == 'focal':
         classifier_ckpt_dir += '_focal'
 
+    if args.freeze_weights:
+        classifier_ckpt_dir += '_freeze'
+
     os.makedirs(classifier_ckpt_dir, exist_ok=True)
     ckpt_save_path = pjoin(classifier_ckpt_dir, f"{args.encoder}_lr{args.lr}_epoch{args.epochs}.pth")
     model = train_classifier(

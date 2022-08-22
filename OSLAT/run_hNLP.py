@@ -568,7 +568,12 @@ def train_classifier(args, model, tokenizer, id2synonyms, train_set, ckpt_save_p
 
 
             for example in tqdm(test_set):
-                pdb.set_trace()
+
+                print(len(example['entity_ids'][0]))
+
+                if not example['multispan'][0]:
+                    continue
+
                 baseline_probs = []
                 for concept_id, synonyms in id2synonyms.items():
                     max_sim = 0

@@ -38,14 +38,13 @@ class HNLPContrastiveNERDataset(Dataset):
 
             # Keep examples with at least one concept
             if len(synonym_inputs) > 0:
-                pdb.set_trace()
                 self.data.append({
                     'id': example['id'],
                     'text_inputs': text_inputs,
                     'synonym_inputs': synonym_inputs,
                     'entity_ids': [entity[0] for entity in example['entities']],
                     'tokens': tokens,
-                    # 'multispan': 
+                    'multispan': [len(entity[1]) > 1 for entity in example['entities']],
                 })
 
     def __getitem__(self, index):

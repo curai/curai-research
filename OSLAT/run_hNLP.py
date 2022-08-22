@@ -595,7 +595,7 @@ def train_classifier(args, model, tokenizer, id2synonyms, train_set, ckpt_save_p
 
                     if max_sim > 0:
                         baseline_probs.append((concept_id, max_sim))
-            print(f"Number of multispan: {n_multi}")
+
 
 
                 # probs = []
@@ -633,7 +633,7 @@ def train_classifier(args, model, tokenizer, id2synonyms, train_set, ckpt_save_p
                 if gt_concept in sorted_ids[:10]:
                     recalls[2] += 1
 
-
+            print(f"Number of multispan: {n_multi}/{len(test_set)}")
             test_summary = f"Top-1 Recall: {round(recalls[0]/len(test_set), 4)}, \
                              Top-5 Recall: {round(recalls[1]/len(test_set), 4)}, \
                              Top-10 Recall: {round(recalls[2]/len(test_set), 4)}"

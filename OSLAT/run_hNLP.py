@@ -583,7 +583,7 @@ def train_classifier(args, model, tokenizer, id2synonyms, train_set, ckpt_save_p
 
             for example in tqdm(test_set):
 
-                for concept_id, synonyms in id2synonyms.item():
+                for concept_id, synonyms in id2synonyms.items():
                     for syn in synonyms:
                         matcher.add(synonym, [nlp(synonym)], on_match=add_name_ent)
                     pdb.set_trace()

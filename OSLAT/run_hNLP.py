@@ -588,7 +588,7 @@ def train_classifier(args, model, tokenizer, id2synonyms, train_set, ckpt_save_p
                         matcher.add(syn, [nlp(syn)], on_match=add_name_ent)
 
                     text = ' '.join([x for x in example['tokens'] if x.strip()])
-                    matches = matcher(nlp(text), thresh=0)
+                    matches = matcher(nlp(text))
                     if matches:
                         pdb.set_trace()
 

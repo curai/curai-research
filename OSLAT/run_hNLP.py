@@ -553,7 +553,6 @@ def train_classifier(args, model, tokenizer, id2synonyms, train_set, ckpt_save_p
             recalls = [0, 0, 0]
             model.eval()
             id2vectors = {}
-            id2synonyms = data['CONCEPT_TO_SYNS']
 
             nlp = spacy.blank("en")
             matcher = FuzzyMatcher(nlp.vocab)

@@ -566,7 +566,7 @@ def train_classifier(args, model, tokenizer, id2synonyms, train_set, ckpt_save_p
             #         synonym_vectors = model.encoder(**synonym_inputs)[0][:, 0, :].detach()
             #     id2vectors[concept_id] = synonym_vectors
 
-
+            n_multi=0
             for example in tqdm(test_set):
 
                 if len(example['entity_ids']) > 1:
@@ -575,6 +575,7 @@ def train_classifier(args, model, tokenizer, id2synonyms, train_set, ckpt_save_p
                 if not example['multispan'][0]:
                     continue
 
+                n_multi += 1
                 baseline_probs = []
                 for concept_id, synonyms in id2synonyms.items():
                     max_sim = 0
@@ -594,6 +595,7 @@ def train_classifier(args, model, tokenizer, id2synonyms, train_set, ckpt_save_p
 
                     if max_sim > 0:
                         baseline_probs.append((concept_id, max_sim))
+            print(f"Number of multispan: {n_multi}")
 
 
                 # probs = []

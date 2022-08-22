@@ -556,33 +556,19 @@ def train_classifier(args, model, tokenizer, id2synonyms, train_set, ckpt_save_p
 
             nlp = spacy.blank("en")
             matcher = FuzzyMatcher(nlp.vocab)
-            
-
-
-# matches = matcher(nlp(' '.join(tokens)))
-
-#                     for synonym, start, end, score in matches:
-#                         rule_based_mask[start:end] = 1
-
-#                     for synonym in synonyms:
-#                         matcher.remove(synonym)
-
-#                 else:
-#                     raise NotImplementedError
-#             pdb.set_trace()
 
 
             # Precompute entity embeddings
-            for concept_id, synonyms in id2synonyms.items():
-                synonym_inputs = tokenizer(synonyms, return_tensors="pt", padding=True)
-                synonym_inputs = {k: v.to(device) for k, v in synonym_inputs.items()}
-                with torch.no_grad():
-                    synonym_vectors = model.encoder(**synonym_inputs)[0][:, 0, :].detach()
-                id2vectors[concept_id] = synonym_vectors
+            # for concept_id, synonyms in id2synonyms.items():
+            #     synonym_inputs = tokenizer(synonyms, return_tensors="pt", padding=True)
+            #     synonym_inputs = {k: v.to(device) for k, v in synonym_inputs.items()}
+            #     with torch.no_grad():
+            #         synonym_vectors = model.encoder(**synonym_inputs)[0][:, 0, :].detach()
+            #     id2vectors[concept_id] = synonym_vectors
 
 
             for example in tqdm(test_set):
-
+                pdb.set_trace()
                 baseline_probs = []
                 for concept_id, synonyms in id2synonyms.items():
                     max_sim = 0

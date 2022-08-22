@@ -1,1 +1,1 @@
-python main.py -wo_contrastive
+python main.py -append_query -classification_loss focal -device 

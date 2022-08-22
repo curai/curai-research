@@ -495,64 +495,70 @@ def train_classifier(args, model, tokenizer, id2synonyms, train_set, ckpt_save_p
     max_positives = 20
 
     for epoch in range(args.epochs):
-        epoch_loss = 0
-        model.train()
+        # epoch_loss = 0
+        # model.train()
 
-        # Shuffle the training set index for each epoch
-        shuffled_indices = sorted(range(len(train_set)), key=lambda k: random.random())
+        # # Shuffle the training set index for each epoch
+        # shuffled_indices = sorted(range(len(train_set)), key=lambda k: random.random())
 
-        for data_idx in tqdm(shuffled_indices):
+        # for data_idx in tqdm(shuffled_indices):
 
-            example = train_set[data_idx]
+        #     example = train_set[data_idx]
 
-            text_input = {k: v.to(device) for k, v in example['text_inputs'].items()}
-            batch_synonym_inputs = []
+        #     text_input = {k: v.to(device) for k, v in example['text_inputs'].items()}
+        #     batch_synonym_inputs = []
 
-            for synonym_inputs in example['synonym_inputs']:
-                if len(synonym_inputs['input_ids']) > max_positives:
-                    indices = random.sample(range(len(synonym_inputs['input_ids'])), max_positives)
-                    batch_synonym_inputs.append({k: v[indices].to(device) for k, v in synonym_inputs.items()})
-                else:
-                    batch_synonym_inputs.append({k: v.to(device) for k, v in synonym_inputs.items()})
+        #     for synonym_inputs in example['synonym_inputs']:
+        #         if len(synonym_inputs['input_ids']) > max_positives:
+        #             indices = random.sample(range(len(synonym_inputs['input_ids'])), max_positives)
+        #             batch_synonym_inputs.append({k: v[indices].to(device) for k, v in synonym_inputs.items()})
+        #         else:
+        #             batch_synonym_inputs.append({k: v.to(device) for k, v in synonym_inputs.items()})
 
-            # Sampling for negative training examples
-            sampled_ids = random.choices(list(id2synonyms.keys()), k=args.num_negatives)
-            negative_names = [random.sample(id2synonyms[concept_id], 1)[0] for concept_id in sampled_ids]
-            negative_inputs = tokenizer(negative_names, return_tensors="pt", padding=True)
-            negative_inputs = {k: v.to(device) for k, v in negative_inputs.items()}
-            batch_synonym_inputs.append(negative_inputs)
+        #     # Sampling for negative training examples
+        #     sampled_ids = random.choices(list(id2synonyms.keys()), k=args.num_negatives)
+        #     negative_names = [random.sample(id2synonyms[concept_id], 1)[0] for concept_id in sampled_ids]
+        #     negative_inputs = tokenizer(negative_names, return_tensors="pt", padding=True)
+        #     negative_inputs = {k: v.to(device) for k, v in negative_inputs.items()}
+        #     batch_synonym_inputs.append(negative_inputs)
 
-            output = model(text_input, batch_synonym_inputs)
+        #     output = model(text_input, batch_synonym_inputs)
 
-            loss = 0.
-            for input_idx, synonym_inputs in enumerate(batch_synonym_inputs[:-1]):
-                n_pos = min(max_positives, len(synonym_inputs['input_ids']))
-                n_neg = args.num_negatives
-                labels = torch.tensor([1 for _ in range(n_pos)] + [0 for _ in range(n_neg)]).to(device)
+        #     loss = 0.
+        #     for input_idx, synonym_inputs in enumerate(batch_synonym_inputs[:-1]):
+        #         n_pos = min(max_positives, len(synonym_inputs['input_ids']))
+        #         n_neg = args.num_negatives
+        #         labels = torch.tensor([1 for _ in range(n_pos)] + [0 for _ in range(n_neg)]).to(device)
 
-                pos = output['logits'][input_idx]
-                neg = output['logits'][-1]
-                logits = torch.cat((pos, neg), dim=-1).squeeze(0)
-                loss += cls_criteria(logits.unsqueeze(0), labels.unsqueeze(0).float())
+        #         pos = output['logits'][input_idx]
+        #         neg = output['logits'][-1]
+        #         logits = torch.cat((pos, neg), dim=-1).squeeze(0)
+        #         loss += cls_criteria(logits.unsqueeze(0), labels.unsqueeze(0).float())
 
-            epoch_loss += loss.item()
-            loss = loss / len(example['synonym_inputs'])
-            loss.backward()
+        #     epoch_loss += loss.item()
+        #     loss = loss / len(example['synonym_inputs'])
+        #     loss.backward()
 
-            if (data_idx + 1) % 32 == 0:
-                optimizer.step()
-                model.zero_grad()
+        #     if (data_idx + 1) % 32 == 0:
+        #         optimizer.step()
+        #         model.zero_grad()
 
         
-        lr = optimizer.optimizer.param_groups[0]['lr']
-        train_summary = f"(Epoch {epoch + 1}) Loss: {epoch_loss} LR: {lr}"
-        logger.info(train_summary)
-        print(train_summary)
+        # lr = optimizer.optimizer.param_groups[0]['lr']
+        # train_summary = f"(Epoch {epoch + 1}) Loss: {epoch_loss} LR: {lr}"
+        # logger.info(train_summary)
+        # print(train_summary)
 
         if test_set:
             recalls = [0, 0, 0]
             model.eval()
             id2vectors = {}
+
+            nlp = spacy.blank("en")
+            matcher = FuzzyMatcher(nlp.vocab)
+            pdb.set_trace()
+            id2synonyms = data['CONCEPT_TO_SYNS']
+
 
             # Precompute entity embeddings
             for concept_id, synonyms in id2synonyms.items():

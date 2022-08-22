@@ -569,6 +569,7 @@ def train_classifier(args, model, tokenizer, id2synonyms, train_set, ckpt_save_p
             n_multi = 0
             for example in tqdm(test_set):
 
+                # Baseline
                 baseline_probs = []
                 for concept_id, synonyms in id2synonyms.items():
                     max_sim = 0
@@ -588,9 +589,9 @@ def train_classifier(args, model, tokenizer, id2synonyms, train_set, ckpt_save_p
 
                     if max_sim > 0:
                         baseline_probs.append((concept_id, max_sim))
-
                 sorted_probs = sorted(baseline_probs, key=lambda x: x[1], reverse=True)
 
+                # OSLAT-Linker
                 # probs = []
                 # with torch.no_grad():
                 #     text_input = {k: v.to(device) for k, v in example['text_inputs'].items()}
@@ -615,9 +616,9 @@ def train_classifier(args, model, tokenizer, id2synonyms, train_set, ckpt_save_p
                 #         probs.append((concept_id, logits.max().item()))
                 # sorted_probs = sorted(probs, key=lambda x: x[1], reverse=True)
 
-                
+
                 sorted_ids = [prob[0] for prob in sorted_probs]
-                for entity_idx, gt_id in example['entity_ids']:
+                for entity_idx, gt_id in enumerate(example['entity_ids']):
                     multi_span = example['multispan'][entity_idx]
 
                     if multi_span:

@@ -597,6 +597,9 @@ def train_classifier(args, model, tokenizer, id2synonyms, train_set, ckpt_save_p
                             if match[-1] > max_sim:
                                 max_sim = match[-1]
 
+                    for syn in synonyms:
+                        matcher.remove(syn)
+
                     if max_sim > 0:
                         baseline_probs.append((concept_id, max_sim))
 
@@ -626,7 +629,7 @@ def train_classifier(args, model, tokenizer, id2synonyms, train_set, ckpt_save_p
 
                 gt_concept = example['entity_ids'][0]
                 sorted_probs = sorted(baseline_probs, key=lambda x: x[1], reverse=True)
-                
+
                 # sorted_probs = sorted(probs, key=lambda x: x[1], reverse=True)
                 sorted_ids = [prob[0] for prob in sorted_probs]
                 if gt_concept in sorted_ids[:1]:

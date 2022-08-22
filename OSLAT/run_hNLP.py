@@ -569,7 +569,7 @@ def train_classifier(args, model, tokenizer, id2synonyms, train_set, ckpt_save_p
 
             for example in tqdm(test_set):
 
-                if len(len(example['entity_ids'])) > 1:
+                if len(example['entity_ids']) > 1:
                     pdb.set_trace()
 
                 if not example['multispan'][0]:

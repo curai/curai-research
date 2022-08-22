@@ -43,6 +43,7 @@ class HNLPContrastiveNERDataset(Dataset):
                     'text_inputs': text_inputs,
                     'synonym_inputs': synonym_inputs,
                     'entity_ids': [entity[0] for entity in example['entities']],
+                    'tokens': tokens,
                 })
 
     def __getitem__(self, index):
@@ -65,6 +66,7 @@ def ner_collate_fn(batch):
     results['input']['input_ids'] = pad_sequence(results['input']['input_ids'], batch_first=True, padding_value=0)
     results['input']['token_type_ids'] = pad_sequence(results['input']['token_type_ids'], batch_first=True, padding_value=0)
     results['input']['attention_mask'] = pad_sequence(results['input']['attention_mask'], batch_first=True, padding_value=0)
+    results['tokens'] = [example['tokens'] for example in batch]
 
     return results
 

@@ -553,11 +553,24 @@ def train_classifier(args, model, tokenizer, id2synonyms, train_set, ckpt_save_p
             recalls = [0, 0, 0]
             model.eval()
             id2vectors = {}
+            id2synonyms = data['CONCEPT_TO_SYNS']
 
             nlp = spacy.blank("en")
             matcher = FuzzyMatcher(nlp.vocab)
-            pdb.set_trace()
-            id2synonyms = data['CONCEPT_TO_SYNS']
+            
+
+
+# matches = matcher(nlp(' '.join(tokens)))
+
+#                     for synonym, start, end, score in matches:
+#                         rule_based_mask[start:end] = 1
+
+#                     for synonym in synonyms:
+#                         matcher.remove(synonym)
+
+#                 else:
+#                     raise NotImplementedError
+#             pdb.set_trace()
 
 
             # Precompute entity embeddings
@@ -570,6 +583,14 @@ def train_classifier(args, model, tokenizer, id2synonyms, train_set, ckpt_save_p
 
 
             for example in tqdm(test_set):
+
+                for concept_id, synonyms in id2synonyms.item():
+                    for syn in synonyms:
+                        matcher.add(synonym, [nlp(synonym)], on_match=add_name_ent)
+                    pdb.set_trace()
+                    # matches = matcher(nlp(' '.join(tokens)))
+
+
                 probs = []
                 with torch.no_grad():
                     text_input = {k: v.to(device) for k, v in example['text_inputs'].items()}

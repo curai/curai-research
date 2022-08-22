@@ -569,7 +569,6 @@ def train_classifier(args, model, tokenizer, id2synonyms, train_set, ckpt_save_p
             n_multi = 0
             for example in tqdm(test_set):
 
-                n_multi += 1
                 baseline_probs = []
                 for concept_id, synonyms in id2synonyms.items():
                     max_sim = 0

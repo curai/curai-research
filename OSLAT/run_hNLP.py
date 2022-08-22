@@ -583,41 +583,51 @@ def train_classifier(args, model, tokenizer, id2synonyms, train_set, ckpt_save_p
 
             for example in tqdm(test_set):
 
+                baseline_probs = []
                 for concept_id, synonyms in id2synonyms.items():
+                    max_sim = 0
                     for syn in synonyms:
                         matcher.add(syn, [nlp(syn)], on_match=add_name_ent)
 
                     text = ' '.join([x for x in example['tokens'] if x.strip()])
                     matches = matcher(nlp(text))
+
                     if matches:
-                        pdb.set_trace()
+                        for match in matches:
+                            if match[-1] > max_sim:
+                                max_sim = match[-1]
+
+                    if max_sim > 0:
+                        baseline_probs.append((concept_id, max_sim))
 
 
-                probs = []
-                with torch.no_grad():
-                    text_input = {k: v.to(device) for k, v in example['text_inputs'].items()}
-                    attention_masks = text_input['attention_mask']
-                    input_hidden = model.encoder(**text_input)[0]
+                # probs = []
+                # with torch.no_grad():
+                #     text_input = {k: v.to(device) for k, v in example['text_inputs'].items()}
+                #     attention_masks = text_input['attention_mask']
+                #     input_hidden = model.encoder(**text_input)[0]
 
-                    if model.ignore_cls:
-                        input_hidden = input_hidden[:, 1:, :]
-                        attention_masks = attention_masks[:, 1:]
+                #     if model.ignore_cls:
+                #         input_hidden = input_hidden[:, 1:, :]
+                #         attention_masks = attention_masks[:, 1:]
 
-                    for concept_id, synonym_vectors in id2vectors.items():
-                        concept_representations = model.attention_layer(
-                            synonym_vectors,
-                            input_hidden,
-                            attention_mask=attention_masks,
-                        )[0]
+                #     for concept_id, synonym_vectors in id2vectors.items():
+                #         concept_representations = model.attention_layer(
+                #             synonym_vectors,
+                #             input_hidden,
+                #             attention_mask=attention_masks,
+                #         )[0]
 
-                        if args.append_query:
-                            concept_representations = torch.cat((concept_representations, synonym_vectors.unsqueeze(0)), dim=-1)
+                #         if args.append_query:
+                #             concept_representations = torch.cat((concept_representations, synonym_vectors.unsqueeze(0)), dim=-1)
 
-                        logits = model.classifier(concept_representations).squeeze(-1)
-                        probs.append((concept_id, logits.max().item()))
+                #         logits = model.classifier(concept_representations).squeeze(-1)
+                #         probs.append((concept_id, logits.max().item()))
 
                 gt_concept = example['entity_ids'][0]
-                sorted_probs = sorted(probs, key=lambda x: x[1], reverse=True)
+                sorted_probs = sorted(baseline_probs, key=lambda x: x[1], reverse=True)
+                
+                # sorted_probs = sorted(probs, key=lambda x: x[1], reverse=True)
                 sorted_ids = [prob[0] for prob in sorted_probs]
                 if gt_concept in sorted_ids[:1]:
                     recalls[0] += 1

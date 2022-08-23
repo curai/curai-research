@@ -567,7 +567,9 @@ def train_classifier(args, model, tokenizer, id2synonyms, train_set, ckpt_save_p
                 id2vectors[concept_id] = synonym_vectors
 
             n_multi = 0
+            n_pairs = 0
             for example in tqdm(test_set):
+                n_pairs += 1
 
                 # # Baseline
                 # baseline_probs = []
@@ -636,20 +638,23 @@ def train_classifier(args, model, tokenizer, id2synonyms, train_set, ckpt_save_p
 
 
 
-            n_single = len(test_set) - n_multi
-            print(f"Single Span: {n_multi}/{len(test_set)}")
+            n_single = n_pairs - n_multi
+            print(f"Single Span: {n_single}/{len(test_set)}")
             test_summary = f"Top-1 Recall: {round(recalls[0][0]/n_single, 4)}, \
                              Top-5 Recall: {round(recalls[0][1]/n_single, 4)}, \
                              Top-10 Recall: {round(recalls[0][2]/n_single, 4)}"
-            print(f"Multi Span: {n_single}/{len(test_set)}")
+            logger.info(test_summary)
+            print(test_summary)
+            print(f"Multi Span: {n_multi}/{len(test_set)}")
             test_summary = f"Top-1 Recall: {round(recalls[1][0]/n_multi, 4)}, \
                              Top-5 Recall: {round(recalls[1][1]/n_multi, 4)}, \
                              Top-10 Recall: {round(recalls[1][2]/n_multi, 4)}"
-
-            print(f"All: {len(test_set)}")
-            test_summary = f"Top-1 Recall: {round((recalls[0][0] + recalls[1][0])/len(test_set), 4)}, \
-                             Top-5 Recall: {round((recalls[0][1] + recalls[1][1])/len(test_set), 4)}, \
-                             Top-10 Recall: {round((recalls[0][2] + recalls[1][2])/len(test_set), 4)}"
+            logger.info(test_summary)
+            print(test_summary)
+            print(f"All: {n_pairs}")
+            test_summary = f"Top-1 Recall: {round((recalls[0][0] + recalls[1][0])/n_pairs, 4)}, \
+                             Top-5 Recall: {round((recalls[0][1] + recalls[1][1])/n_pairs, 4)}, \
+                             Top-10 Recall: {round((recalls[0][2] + recalls[1][2])/n_pairs, 4)}"
             logger.info(test_summary)
             print(test_summary)
                     

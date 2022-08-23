@@ -1,1 +1,1 @@
-python main.py -append_query -classification_loss focal -device 
+python main.py -freeze_weights -classification_loss focal -device 1

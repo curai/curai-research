@@ -145,6 +145,10 @@ dependencies:
   - zlib=1.2.12=h7f8727e_2
   - zstd=1.5.0=ha95c52a_0
   - pip:
+    - en-core-web-sm==3.3.0
+    - greenlet==1.1.2
     - pydantic==1.8.2
     - rapidfuzz==1.9.1
     - spaczz==0.5.4
+    - sqlalchemy==1.4.40
+prefix: /home/raymond/miniconda3/envs/curai_oslat

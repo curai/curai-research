@@ -2,6 +2,8 @@ import os, re, csv, json, torch, random, argparse, collections
 from os.path import join as pjoin
 import numpy as np
 from run_hNLP import run_hnlp
+from run_RFE import run_rfe
+
 
 import pdb
 
@@ -20,9 +22,6 @@ encoder_names = {
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-
-    parser.add_argument('-json_data_path', default=pjoin(ROOT_DIR, 'resources', 'CuRSA', 'CuRSA-FIXED-v0-processed-all.json'))
-    parser.add_argument('-processed_data_path', default=pjoin(ROOT_DIR, 'resources', 'CuRSA', 'CuRSA-FIXED-v0-processed-all.pth'))
     
     # Optimization settings
     parser.add_argument('-optim', default='ADAM', type=str, choices=['ADAM', 'SGD'])
@@ -104,8 +103,8 @@ if __name__ == "__main__":
     parser.add_argument('-classification_loss', default='bce', type=str, choices=['bce', 'focal'])
     parser.add_argument('-freeze_weights', action='store_true')
 
-    # Whether to run baseline models
-    parser.add_argument('-model', default='oslat', type=str, choices=['oslat', 'sap-bert'])
+    # Dataset to run
+    parser.add_argument('-dataset', default='hnlp', type=str, choices=['rfe', 'hnlp'])
 
     parser.add_argument('-device', type=int, default=0)
 
@@ -121,10 +120,14 @@ if __name__ == "__main__":
     
     args.device = torch.device(f'cuda:{args.device}') if torch.cuda.is_available() else 'cpu'
 
-    if args.model == 'oslat':
-        run_hnlp(args)
-    # else:
-    #     run_baselines(args)
+    if args.dataset == 'hnlp':
+        run_hNLP(args)
+    elif args.dataset == 'rfe':
+        run_rfe(args)
+    else:
+        raise NotImplementedError
+
+    
 
 
 

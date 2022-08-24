@@ -5,7 +5,7 @@ import torch.nn.functional as F
 import numpy as np
 
 import collections
-from models.hard_concrete import HardConcrete
+# from models.hard_concrete import HardConcrete
 from models.focal_loss import BinaryFocalLossWithLogits
 
 from transformers import AutoModel
@@ -170,12 +170,17 @@ class ContrastiveEntityExtractor(nn.Module):
         self.use_attention = args.use_attention
         self.use_classification_loss = args.use_classification_loss
         self.ignore_cls = args.ignore_cls
-        # pdb.set_trace()
         self.pooling_method = args.hidden_states_pooling_method
+
+        self.append_query = args.append_query
+        self.use_projection_head = args.use_projection_head
         
         encoder_hidden_size = self.encoder.config.hidden_size
 
-        final_hidden_size = encoder_hidden_size
+        if self.append_query:
+            final_hidden_size = 2 * encoder_hidden_size
+        else:
+            final_hidden_size = encoder_hidden_size
 
         if self.use_attention:
             if args.use_multi_head:
@@ -185,9 +190,10 @@ class ContrastiveEntityExtractor(nn.Module):
                 self.attention_layer = EntityAttention(args, encoder_hidden_size)
 
         if self.use_classification_loss:
-            self.classifier = BinaryClassifier(encoder_hidden_size, args.classifier_hidden_size)
+            self.classifier = BinaryClassifier(final_hidden_size, args.classifier_hidden_size)
 
-        self.projection_head = ProjectionHead(encoder_hidden_size, 128, 128)
+        if self.use_projection_head:
+            self.projection_head = ProjectionHead(final_hidden_size, args.projection_hidden_size, args.projection_output_size)
 
         # self.classifier = MultipleBinaryClassifiers(final_hidden_size, args.classifier_hidden_size, self.n_classes, normalize=self.normalize)
 
@@ -214,14 +220,23 @@ class ContrastiveEntityExtractor(nn.Module):
                 attention_masks = attention_masks[:, 1:]
 
             attention_output = self.attention_layer(entity_cls, hidden_states, attention_mask=attention_masks, output_attentions=output_attentions)
-            final_hidden = attention_output[0]
-            entity_representations.append(F.normalize(self.projection_head(final_hidden), dim=-1).squeeze(0))
+            attention_representation = attention_output[0]
+
+            if self.append_query:
+                attention_representation = torch.cat((attention_representation, entity_cls.unsqueeze(0)), dim=-1)
+
+            if self.use_projection_head:
+                projected_representation = self.projection_head(attention_representation)
+                entity_representations.append(F.normalize(projected_representation, dim=-1).squeeze(0))
+            else:
+                entity_representations.append(F.normalize(attention_representation, dim=-1).squeeze(0))
+
 
             if output_attentions:
                 attention.append(attention_output[1])
 
             if self.use_classification_loss:
-                logits.append(self.classifier(final_hidden).squeeze(-1))
+                logits.append(self.classifier(attention_representation).squeeze(-1))
 
 
 

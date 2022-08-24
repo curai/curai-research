@@ -1,0 +1,1 @@
+python main.py -dataset rfe -freeze_weights -classification_loss focal -device 0

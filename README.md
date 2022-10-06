@@ -13,5 +13,5 @@ This repository contains code released by
 
 * [Open Set Label Attention Transformer](https://github.com/curai/curai-research/tree/main/OSLAT): Code and example data for for [OSLAT: Open Set Label Attention Transformer for Medical Entity Span Extraction](https://arxiv.org/abs/2207.05817) (Preprint)
 * 
-* [Functional sections in medical conversations](https://github.com/curai/curai-research/tree/main/Learning-functional-sections-in-medical-conversations): Code and example data for for Learning functional sections in medical conversations:
+* [Functional sections in medical conversations](https://github.com/curai/curai-research/tree/main/functional-sections): Code and example data for for Learning functional sections in medical conversations:
 iterative pseudo-labeling and human-in-the-loop approach (Preprint)

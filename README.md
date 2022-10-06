@@ -12,3 +12,6 @@ This repository contains code released by
 * [medical-summarization-ML4H-2021](https://github.com/curai/curai-research/tree/main/medical-summarization-ML4H-2021): Code and example data for for [Adding more data does not always help: A study in medical conversation summarization with PEGASUS](https://arxiv.org/abs/2111.07564) (Accepted at ML4H2021)
 
 * [Open Set Label Attention Transformer](https://github.com/curai/curai-research/tree/main/OSLAT): Code and example data for for [OSLAT: Open Set Label Attention Transformer for Medical Entity Span Extraction](https://arxiv.org/abs/2207.05817) (Preprint)
+* 
+* [Functional sections in medical conversations](https://github.com/curai/curai-research/tree/main/functional-sections): Code and example data for for Learning functional sections in medical conversations:
+iterative pseudo-labeling and human-in-the-loop approach (Preprint)

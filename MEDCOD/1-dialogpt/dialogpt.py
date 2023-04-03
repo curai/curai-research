@@ -406,7 +406,7 @@ if __name__ == "__main__":
     # Setup CUDA, GPU & distributed training
     cuda_avail = torch.cuda.is_available()
     if not cuda_avail:
-        logger.warning("Training occuring on CPU. Check PyTorch installation if GPU training is desired")
+        logger.warning("Training occurring on CPU. Check PyTorch installation if GPU training is desired")
 
     device = torch.device("cuda") if cuda_avail else torch.device("cpu")
     args.n_gpu = torch.cuda.device_count() if cuda_avail else 0

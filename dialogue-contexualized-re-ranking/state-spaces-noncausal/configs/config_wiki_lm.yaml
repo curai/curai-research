@@ -1,0 +1,74 @@
+trainer:
+  device: cuda
+  accumulate_grad_batches: 32
+  gpus: 1
+  max_epochs: 1000
+  gradient_clip_val: 0.0
+  log_every_n_steps: 10
+  evaluation_step: 200
+  fp16: true
+  task: causal
+checkpoint:
+  dirpath: checkpoints
+  verbose: true
+dataset:
+  _name_: wiki
+  data: wikipedia
+  subset: 20220301.en
+  cache_dir: ../cache
+  test_size: 0.0001 # 6458024 train samples & 646 dev samples
+  tokenizer: google/long-t5-tglobal-base # google/long-t5-tglobal-base for causal model & bert-base-uncased for bidirectional models
+  batch_size: 1
+  l_max: 8192
+optimizer:
+  _name_: adamw
+  lr: 0.001
+  weight_decay: 0.1
+scheduler:
+  _name_: cosine_warmup
+  num_warmup_steps: 1000
+  num_training_steps: 800000
+embedding:
+  rescale: true
+  d_model: ${model.d_model}
+  n_tokens: 32100
+decoder: 
+  tied: true
+  d_output: ${model.d_model}
+model:
+  layer:
+  - _name_: s4
+    d_state: 256
+    l_max: ${dataset.l_max}
+    postact: glu
+    dropout: ${...dropout}
+    lr: ${optimizer.lr}
+    n_ssm: 256
+    bidirectional: false
+  - _name_: s4
+    d_state: 256
+    l_max: ${dataset.l_max}
+    postact: glu
+    dropout: ${...dropout}
+    lr: ${optimizer.lr}
+    n_ssm: 256
+    bidirectional: false
+  - _name_: ff
+    expand: 4
+    activation: gelu
+    dropout: ${...dropout}
+  _name_: model
+  prenorm: true
+  transposed: false
+  n_layers: 12
+  d_model: 768
+  residual: R
+  pool:
+    _name_: pool
+    stride: 1
+    expand: 1
+  norm: layer
+  dropout: 0.1
+  tie_dropout: false
+  track_norms: true
+  dropinp: 0.0

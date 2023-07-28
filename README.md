@@ -7,7 +7,7 @@
 This repository contains code released by
 [Curai Health](https://curaihealth.com/) ([Tech Blog](https://medium.com/curai-tech)).
 
-* [Dialogue-Contextualized Re-ranking for Medical History-Taking](): Code for [Dialogue-Contextualized Re-ranking for Medical History-Taking](https://arxiv.org/abs/2304.01974)
+* [Dialogue-Contextualized Re-ranking for Medical History-Taking](https://github.com/curai/curai-research/tree/main/dialogue-contexualized-re-ranking): Code for [Dialogue-Contextualized Re-ranking for Medical History-Taking](https://arxiv.org/abs/2304.01974) (Accepted at MLHC 2023)
 
 * [DERA](https://github.com/curai/curai-research/tree/main/DERA): Open-ended question answering data for [DERA: Enhancing Large Language Model Completions with Dialog-Enabled Resolving Agents](https://arxiv.org/abs/2303.17071).
 

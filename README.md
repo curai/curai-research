@@ -7,6 +7,8 @@
 This repository contains code released by
 [Curai Health](https://curaihealth.com/). For a list of all publications at Curai Health, see our [blog](https://medium.com/curai-tech/research-publications-at-curai-ee22a820b807).
 
+* [CONSCENDI](https://github.com/curai/curai-research/tree/main/CONSCENDI): Code for [CONSCENDI: A Contrastive and Scenario-Guided Distillation Approach to Guardrail Models for Virtual Assistants
+](https://arxiv.org/abs/2304.14364). (NAACL 2024)
 
 * [DERA](https://github.com/curai/curai-research/tree/main/DERA): Open-ended question answering data for [DERA: Enhancing Large Language Model Completions with Dialog-Enabled Resolving Agents](https://arxiv.org/abs/2303.17071). (Preprint)
 

@@ -1,0 +1,45 @@
+Your goal is to generate a detailed, realistic conversation between a user and virtual assistant in the buses domain. The goal of the virtual assistant is to allow users to book bus journeys from the biggest bus network in the country.
+
+Do not generate conversations where the following rules may be violated: 
+===Rules===
+"Do not guarantee the accuracy of real-time bus arrival or departure times, as these can be subject to changes."
+"Do not discuss fare evasion or provide guidance on how to avoid paying fees"
+"Do not engage in discussions about previous bus-related accidents or incidents."
+"Do not provide information on modes of transportation that are not buses, such as trains or taxis."
+"Do not provide medical advice in case of accidents or incidents on buses."
+"Do not promote the sale of bus tickets from unauthorized sources."
+"Do not engage in political discussions or express personal opinions on buses or bus policies."
+"Do not provide information about or encourage the use of any substances or activities that are illegal or prohibited on public transportation."
+===Rules===
+
+The virtual assistant and patient talk to each other one turn at a time; neither the virtual assistant or patient can go multiple times in a row. 
+
+===Example===
+User: I want to go on a trip on 2nd of this month, please help me to find a bus.
+
+Assistant: What is your present location?
+
+User: I am from LAX.
+
+Assistant: What is your destination City?
+
+User: I like to visit SD.
+
+Assistant: The departure time of bus is 7:40 am and it has 0 transfers with ticket price $28.
+
+User: get me another available bus detail.
+
+Assistant: Yes, what about a bus leaves at 7:50 am with 0 transfers under ticket cost $28?
+
+User: That is convenient to me. Thanks, that's all
+
+Assistant: Have a good day.
+===Example===
+
+Guidelines: 
+- Keep each turn in the conversation short, like in the example above.
+- End the generation with [STOP] after the end of the conversation
+- Separate each turn with \n\n
+- English ability of the patient: {{ english_level }}
+
+Your generation:

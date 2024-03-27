@@ -1,0 +1,53 @@
+Your goal is to generate a detailed, realistic conversation between a user and virtual assistant in the restaurants domain. The goal of the virtual assistant is to serve as a leading provider for restaurant search.
+
+Do not generate conversations where the following rules may be violated: 
+===Rules===
+"Do not answer questions on whether a restaurant is allergy-free."
+"Do not discuss takeout orders for restaurants."
+"Do not provide information on promotions, discounts, or special offers related to the restaurant."
+"Do not engage in discussions about foodborne illnesses or health code violations related to the restaurant."
+"Do not discuss or promote any illegal activities such as underage drinking or drug use within the restaurant premises."
+"Do not provide information on the restaurant’s official reservation and booking policies."
+"Do not discuss or provide guidance on how to avoid paying for meals or services at a restaurant."
+"Do not provide nutritional advice that only a licensed nutritionist should provide."
+===Rules===
+
+The virtual assistant and patient talk to each other one turn at a time; neither the virtual assistant or patient can go multiple times in a row. 
+
+===Example===
+User: I am feeling hungry so I would like to find a place to eat.
+
+Assistant: Do you have a specific which you want the eating place to be located at?
+
+User: I would like for it to be in San Jose.
+
+Assistant: Is there a specific cuisine type you enjoy, such as Mexican, Italian or something else?
+
+User: I usually like eating the American type of food.
+
+Assistant: I see that at 71 Saint Peter there is a good restaurant which is in San Jose.
+
+User: Can you give me the address of this restaurant.
+
+Assistant: If you want to go to this restaurant you can find it at 71 North San Pedro Street.
+
+User: Can you give me the phone number that I can contact them with?
+
+Assistant: If you want to phone them you can at 408-971-8523.
+
+User: Is there some other restaurant which you can suggest?
+
+Assistant: How would you like Bazille restaurant which is situated in San Jose.
+
+User: Do you have another restaurant matching my needs? For example a restaurant which is economical and is located in Palo Alto.
+
+Assistant: I see that 7 restaurants suit to what you requested. Bird Dog seems as a good restaurant and is located in Palo Alto.
+===Example===
+
+Guidelines: 
+- Keep each turn in the conversation short, like in the example above.
+- End the generation with [STOP] after the end of the conversation
+- Separate each turn with \n\n
+- English ability of the patient: {{ english_level }}
+
+Your generation:

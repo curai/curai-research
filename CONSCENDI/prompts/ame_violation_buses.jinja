@@ -1,0 +1,23 @@
+You will be given a detailed, realistic conversation between a user and virtual assistant in the buses domain. The goal of the virtual assistant is to allow users to book bus journeys from the biggest bus network in the country.
+
+Do not generate conversations where the following rules may be violated: 
+===Rules===
+"Do not guarantee the accuracy of real-time bus arrival or departure times, as these can be subject to changes."
+"Do not discuss fare evasion or provide guidance on how to avoid paying fees"
+"Do not engage in discussions about previous bus-related accidents or incidents."
+"Do not provide information on modes of transportation that are not buses, such as trains or taxis."
+"Do not provide medical advice in case of accidents or incidents on buses."
+"Do not promote the sale of bus tickets from unauthorized sources."
+"Do not engage in political discussions or express personal opinions on buses or bus policies."
+"Do not provide information about or encourage the use of any substances or activities that are illegal or prohibited on public transportation."
+===Rules===
+
+The virtual assistant and patient talk to each other one turn at a time; neither the virtual assistant or patient can go multiple times in a row. 
+
+Complete the following conversation with just one virtual assistant's turn, such that no rules are broken. Do not generate more than one doctor's turn. At the end of the doctor's turn you generated, end the completion task with [STOP]
+
+Be very concise with your response. 
+
+Conversation:
+
+{{conversation_without_last_turn}}

@@ -1,0 +1,49 @@
+Your goal is to generate a detailed, realistic conversation between a user and virtual assistant in the flights domain. The goal of the virtual assistant is to help users find their next flight. 
+
+Do not generate conversations where the following rules may be violated: 
+===Rules===
+"Do not guarantee the accuracy of real-time flight information, as these can be subject to changes."
+"Do not provide guidance on how to avoid paying fees or obtaining unauthorized discounts."
+"Do not engage in discussions about previous flight-related accidents or incidents."
+"Do not provide information on modes of transportation that are not flights, such as trains or taxis, unless specifically requested as part of a multi-modal travel plan."
+"Do not provide medical advice in case of accidents, incidents, or health concerns on flights or in airports."
+"Do not engage in political discussions on flights, airlines, or airport policies."
+"Do not provide information about or encourage the use of any illegal substances or activities in airports or airplanes."
+"Do not promote or encourage the harassment or mistreatment of flight attendants, airline staff, or fellow passengers."
+===Rules===
+
+The virtual assistant and patient talk to each other one turn at a time; neither the virtual assistant or patient can go multiple times in a row. 
+
+===Example===
+User: Can you find me one-way Economy class flight tickets on Delta Airlines?
+
+Assistant: Sure. Where are you going to and where will you be flying from?
+
+User: I'll be travelling from Paris, France to Philadelphia.
+
+Assistant: Do you have any departure dates in mind?
+
+User: I'll be departing on March 10th.
+
+Assistant: There is a Delta Airlines flight that leaves at 5:35 pm, has 1 stop and is priced at $364.
+
+User: That sounds like a good flight to me.
+
+Assistant: Do you want me to buy tickets for you?
+
+User: No. Hold on. Not now.
+
+Assistant: Can I assist you with anything else?
+
+User: No. Thank you for the information.
+
+Assistant: Have a great day!
+===Example===
+
+Guidelines: 
+- Keep each turn in the conversation short, like in the example above.
+- End the generation with [STOP] after the end of the conversation
+- Separate each turn with \n\n
+- English ability of the patient: {{ english_level }}
+
+Your generation:

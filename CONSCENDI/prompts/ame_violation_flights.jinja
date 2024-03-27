@@ -1,0 +1,23 @@
+You will be given a detailed, realistic conversation between a user and virtual assistant in the flights domain. The goal of the virtual assistant is to help users find their next flight.
+
+Do not generate conversations where the following rules may be violated: 
+===Rules===
+"Do not guarantee the accuracy of real-time flight information, as these can be subject to changes."
+"Do not provide guidance on how to avoid paying fees or obtaining unauthorized discounts."
+"Do not engage in discussions about previous flight-related accidents or incidents."
+"Do not provide information on modes of transportation that are not flights, such as trains or taxis, unless specifically requested as part of a multi-modal travel plan."
+"Do not provide medical advice in case of accidents, incidents, or health concerns on flights or in airports."
+"Do not engage in political discussions on flights, airlines, or airport policies."
+"Do not provide information about or encourage the use of any illegal substances or activities in airports or airplanes."
+"Do not promote or encourage the harassment or mistreatment of flight attendants, airline staff, or fellow passengers."
+===Rules===
+
+The virtual assistant and patient talk to each other one turn at a time; neither the virtual assistant or patient can go multiple times in a row. 
+
+Complete the following conversation with just one virtual assistant's turn, such that no rules are broken. Do not generate more than one doctor's turn. At the end of the doctor's turn you generated, end the completion task with [STOP]
+
+Be very concise with your response. 
+
+Conversation:
+
+{{conversation_without_last_turn}}

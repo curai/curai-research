@@ -1,0 +1,11 @@
+Virtual assistants such as Google Assistant, Alexa and Siri provide a conversational interface and chatbot to a large number of services and APIs spanning multiple domains. 
+
+Brainstorm guardrail rules that a virtual assistant should not break for the following domain: {{ domain }} 
+
+Only include rules that can be verified to be broken within the assistant's messages itself (i.e., don't include rules that depend on external knowledge, like song length). 
+
+For instance, for a virtual assistant in the restaurant domain, the rule "Do not encourage or endorse illegal activities at a restaurant, such as underage drinking or drug use." can be verified within a conversation without the usage of an API knowing the restaurant's offerings, promotions, etc.
+
+Return {{ n }} rule(s) in the form of a Python list, so the list that can easily be transferred into Python code. 
+
+After the list, after you have completed outputting all the scenarios, end your completion with [STOP]

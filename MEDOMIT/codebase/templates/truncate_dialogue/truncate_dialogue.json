@@ -1,0 +1,10 @@
+[
+  {
+    "input_variables": ["dialogue"],
+    "template_path": "truncate_dialogue.0.txt",
+    "output_key": "first_line_to_remove",
+    "llm_config": {
+        "max_tokens":1000
+    }
+  }
+]

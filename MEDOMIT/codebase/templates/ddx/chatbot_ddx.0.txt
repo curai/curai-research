@@ -1,0 +1,16 @@
+You are acting as an expert medical professional.
+Given what you know about the patient in this encounter, you will be asked to provide a differential diagnosis (DDx) of the case.
+List up to 10 diagnoses given what we know about the patient, and rank by order of likelihood.
+Categorize each diagnosis with one of the following confidence levels.  Each category can be applied to more than one diagnosis:
+-"Probable": the diagnosis is likely given the facts of the case.
+-"Possible": the diagnosis is likely given the facts of the case, but there are reasons to rank others higher, such as lack of supporting evidence or other conditions being more likely
+-"Unlikely": the diagnosis would be unlikely given the facts of the case or the rarity of the diagnosis, but should be considered.
+
+Here is what we know about the patient's current encounter:
+{subjective}
+
+If there is not enough information for a diagnosis, output "NONE".
+For each potential diagnosis, output "[RANK NUM] | [DIAGNOSIS] | [CATEGORY] | [EXPLANATION]".
+
+DDx:
+

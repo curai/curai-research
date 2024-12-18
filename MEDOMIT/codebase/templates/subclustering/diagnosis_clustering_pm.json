@@ -1,0 +1,10 @@
+[
+  {
+    "input_variables": ["diagnosis", "facts"],
+    "template_path": "diagnosis_clustering_pm.0.txt",
+    "output_key": "fact_sub_clusters",
+    "llm_config": {
+        "max_tokens":750
+    }
+  }
+]

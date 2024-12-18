@@ -1,0 +1,24 @@
+The following is a list of facts extracted from a medical encounter.
+
+
+Your role is to select which  positive fact(s) support each diagnosis.
+Therefore, only report pertinent positives which support each diagnosis.  Do not report supportive results that negate the diagnosis, or any other type of fact.
+
+
+A fact can occur in multiple diagnoses.
+
+The classifications should be in reference to this differential diagnosis;
+{ddx}
+
+Facts:
+{facts}
+
+
+Output the results in a json dictionary, such as;
+{{
+"DIAGNOSIS 1" : {{"FACT_NUM" : "EXPLANATIION" ...}}
+...
+}}
+If a diagnosis has no facts, output an empty array.
+
+Clusters:

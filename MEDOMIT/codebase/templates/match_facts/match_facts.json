@@ -1,0 +1,10 @@
+[
+  {
+    "input_variables": ["all_facts", "omitted_facts"],
+    "template_path": "match_facts.0.txt",
+    "output_key": "matched_facts",
+    "llm_config": {
+        "max_tokens":500
+    }
+  }
+]

@@ -1,0 +1,9 @@
+Below are two lists of facts -- list 1 and list 2.  If a fact from list 1 matches to a fact in list two, output their pairing.  Output only the letter and number of the pair separated by a newline (Example: [Number]:[Letter]\n).  Do not pairs letters with letters or numbers with numbers.  If there are no matches, output an empty string.
+
+List 1:
+{all_facts}
+
+List 2:
+{omitted_facts}
+
+Pairings:

@@ -1,0 +1,10 @@
+[
+    {
+      "input_variables": ["dialogue"],
+      "template_path": "extract_facts.0.txt",
+      "output_key": "facts",
+      "llm_config": {
+          "max_tokens":1500
+      }
+    }
+  ]

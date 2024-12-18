@@ -1,0 +1,10 @@
+[
+  {
+    "input_variables": ["subjective", "fact_list"],
+    "template_path": "identify_omissions.0.txt",
+    "output_key": "missing_facts",
+    "llm_config": {
+        "max_tokens":1000
+    }
+  }
+]

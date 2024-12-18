@@ -1,0 +1,10 @@
+[
+  {
+    "input_variables": ["subjective"],
+    "template_path": "chatbot_ddx.0.txt",
+    "output_key": "ddx",
+    "llm_config": {
+        "max_tokens":700
+    }
+  }
+]

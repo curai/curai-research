@@ -1,0 +1,10 @@
+[
+  {
+    "input_variables": ["facts", "ddx"],
+    "template_path": "diagnosis_negative_clustering.0.txt",
+    "output_key": "fact_clusters",
+    "llm_config": {
+        "max_tokens":1000
+    }
+  }
+]

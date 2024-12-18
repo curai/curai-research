@@ -1,0 +1,7 @@
+[
+  {
+    "input_variables": ["dialogue"],
+    "template_path": "summary.0.txt",
+    "output_key": "subjective"
+  }
+]

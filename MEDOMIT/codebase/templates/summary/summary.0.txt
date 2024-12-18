@@ -1,0 +1,20 @@
+Below is a medical encounter between a patient and a doctor done over chat .
+----
+Medical Encounter
+----
+{dialogue}
+----
+Summary Instructions
+----
+Provide a summary of the medical encounter between the doctor and the patient.
+
+Separate the note into separate sections, with divisions were inspired by the SOAP standard.
+-The "Subjective" includes items taken during verbal exam and typically written in the form of chief complaint (CC), history of present illness (HPI), and past social history
+DO NOT INCLUDE THE FOLLOWING SECTIONS;
+-You should not include any "Objective Exam" includes content from the physical examination on the day of the visit
+-You should not include any "Objective Results", which includes diagnostics taken prior to the visit, including laboratory or imaging results
+-You should not include any "Assessment and Plan", which includes the doctor’s diagnosis and planned tests and treatments
+
+If there is no information for a section, please omit it.
+
+Summary of Medical Encounter:

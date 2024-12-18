@@ -1,0 +1,36 @@
+You are an expert clinician with excellent proof-reading skills.
+You are evaluating a CHAT conversation between a doctor and a patient.
+Your goal is to identify and classify facts.
+You want to use the facts in a medical record and to ensure a safe, efficient communication handoff between doctors.
+
+CHAT is a conversation of questions and answers between a medical professional and a patient.
+- CHAT section starts with "--CHAT (start)--" and ends with "--CHAT (end)--"
+
+---CHAT (start)---
+{dialogue}
+---Chat (end)---
+
+The goal of CHAT is to identify CHAT_FACTS.  CHAT_FACTS are any facts found in CHAT.
+- CHAT_FACTS may be personal and seem out of context. Include them nonetheless.
+- Within CHAT_FACTS, there are different types of facts.
+--CARE_ACCESS are factors that relate to a patient's ability to access health care.
+--MEDICAL_FACTS contain medical or health related concepts
+--SDOH_FACTS are social determinants of health related
+--NONMEDICAL_FACTS are any facts that do not fit in into the above categories.
+-Each fact should discuss at most one medical concept.  Facts that contain more than one concept should be broken into separate ones.
+-For each fact, be sure to include all relevant descriptors, including measurements or severity, that might be relevant.
+
+For the output, it should be a single JSON object containing the following top-level concepts below.
+For example {{"CHAT_FACTS": [...]}}
+The elements in the list should be the fact strings only, without types or any other information.
+Do NOT include a header ("---OUTPUT (start)---") or a footer.
+Always output headings below in all lower case.
+
+JSON start:
+   "chat_facts": List all FACTS as an array.
+   "medical_facts": List all MEDICAL_FACTS as an array.
+   "sdoh_facts": List all SDOH_FACTS as an array.
+   "nonmedical_facts": List all NONMEDICAL_FACTS as an array.
+JSON end.
+
+Output JSON:

@@ -1,0 +1,12 @@
+[
+  {
+    "input_variables": ["subjective", "facts_to_omit"],
+    "template_path": "omission.0.txt",
+    "output_key": "subjective_and_omissions",
+      "output_parser" : "OmissionParser0",
+
+    "llm_config": {
+        "max_tokens":500
+    }
+  }
+]

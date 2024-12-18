@@ -1,0 +1,10 @@
+[
+    {
+      "input_variables": ["ddx", "facts"],
+      "template_path": "three_groups.0.txt",
+      "output_key": "output_str",
+      "llm_config": {
+          "max_tokens":750
+      }
+    }
+  ]

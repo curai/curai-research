@@ -1,0 +1,19 @@
+The following is a list of facts extracted from a medical encounter.
+
+For each potential diagnosis below, select which fact(s) indicate negative results for diagnosis where that symptom is expected.
+Therefore, only report pertinent negatives which refute each diagnosis.  Do not report negative results that support the diagnosis.
+
+The clusters should be in reference to this differential diagnosis;
+{ddx}
+
+Facts:
+{facts}
+
+Output the results in a json dictionary, such as;
+{{
+"DIAGNOSIS 1" : {{"FACT_NUM" : "EXPLANATIION" ...}}
+...
+}}
+If a diagnosis has no facts, output an empty array. The fact clusters can overlap.
+
+Clusters:

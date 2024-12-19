@@ -1,0 +1,17 @@
+
+--begin summary--
+{summary}
+--End Summary--
+
+The above is the full patient summary.
+This contains sections, which are marked by upper case phrases and /or abbreviations.  Any headers in between the upper case phrases or abbreviations are within the outer section, and should be treated as internal.
+ Only output the sections in their entirety which contain the following information;
+-Chief Complaint
+-History of Present Illness
+-Any assessments of the patient's current medical conditions.  For example, pain assessments, opiod assessments, depression assessments, etc.
+-Any section about the patient's history (e.g. Past History, Social History) or current medical state (e.g. current medications, current conditions).
+-Review of Systems
+-Physical Exam (or Exam)
+Output the above sections verbatim, and do not output any other sections.
+
+Output:

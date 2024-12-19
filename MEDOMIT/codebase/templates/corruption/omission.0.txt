@@ -1,0 +1,16 @@
+Instructions
+-The following is a medical summary of a single medical encounter.  In addition, there is a list of facts from that same encounter that should be omitted in a new summary.
+-Acting as a medical expert who is testing medical students on their thoroughness, rewrite the summary to omit the listed facts.
+-Do not omit any other information than is included in the omitted fact list.
+-An omitted fact is defined as one that is not included in the summary in its entirety.
+-Output the rewritten summary.
+
+--Begin Summary--
+{subjective}
+--End Summary--
+--Begin Facts to Omit--
+{facts_to_omit}
+--End Facts to Omit--
+
+Rewrite the medical record to omit the above facts.  Output the rewritten medical record (Rewrite:[medical record]).
+Rewrite:

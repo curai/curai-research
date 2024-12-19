@@ -1,0 +1,23 @@
+Instructions
+-The following is a medical summary of a single medical encounter.  In addition, there is a list of facts from that same encounter.
+-Acting as a medical expert who is testing medical students on their thoroughness, which facts were omitted from the summary?
+-For a fact to be an omission, relevant information from the fact must be omitted.  The fact does not have to be written verbatim.
+-Output the list of facts that were omitted, report the fact id, fact, and a short explanation.
+
+--Begin Summary--
+{subjective}
+--End Summary--
+--Begin Facts--
+{fact_list}
+--End Facts--
+
+Are there any facts missing from the summary? Report the fact number, the fact, and an explanation for each.
+
+The output should be in a json dictionary, with the following format;
+{{
+"FACT_NUM" : ["FACT", "EXPLANATION"]
+...
+}}
+If there are no missing facts, return an empty json dictionary.
+
+Missing facts:

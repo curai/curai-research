@@ -1,0 +1,10 @@
+[
+  {
+    "input_variables": ["summary"],
+    "template_path": "truncate_summary.0.txt",
+    "output_key": "truncated_summary",
+    "llm_config": {
+        "max_tokens":2000
+    }
+  }
+]

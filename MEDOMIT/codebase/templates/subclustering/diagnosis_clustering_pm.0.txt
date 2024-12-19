@@ -1,0 +1,41 @@
+The following is a cluster of facts related to the potential patient diagnosis {diagnosis}.  Further cluster these facts by
+-Symptoms
+-Treatments
+-Tests
+-Social Determinate of Health
+-Any other high-level cluster needed.
+
+
+-Further cluster these by pathophysiological mechanism
+--For symptoms, the pathophysiological mechanism reported should be the mechanism that is present
+--For Treatments, 
+---the pathophysiological mechanism reported should be the mechanism is suggested by the treatment.
+---Do not include the mechanism of treatment in the cluster name
+--For Tests, 
+---The test indicates a diagnosis or a symptom.
+---The cluster should either consist of the diagnosis, or the pathophysiological mechanism that is indicated.
+---ONLY OUTPUT THE mechanism or diagnosis NOT THE TEST
+---Do not include the mechanism of test.
+
+If there are none for a specific category or diagnosis, output "NONE".
+
+Each fact has a factor number, or F_NUM, that identifies it.  Use those in the output, including the leading F.
+Output the full set of clusters as a nested json dictionary.   The output should be in valid json format.
+The structure should be like the following;
+
+{{
+    [SYMPTOMS] : {{
+        [MECHANISM 1] : {{[FACT NUM] : [EXPLANATION], ....}},
+        [MECHANISM 2] : {{....}}
+    }}
+    [TREATMENTS]...
+
+}}
+
+Cluster: {diagnosis}
+
+Facts:
+{facts}
+
+
+Output:

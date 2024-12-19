@@ -1,0 +1,29 @@
+The following is a patient-doctor dialogue.
+
+
+{dialogue}
+
+Consider the conversation in the frame of a SOAP medical note framework.
+We want to include all dialogue lines that contain information that might be relevant to the subjective.
+This includes;
+-Chief Complaint
+-History of Present Illness
+--This includes questions about the patient's current health status.
+-Past medical history
+--The includes any discussion of previously diagnosed medical issues.
+This does not include;
+-Physical exam
+-Laboratory Results
+-New diagnoses made by the provider in this conversation
+-Assessment or care plan
+Return the last line of the conversation that collects this information.
+
+The conversation begins with line number 0.
+Output the entire relevant line in a valid json dictionary formatted as follows;
+{{
+[LINE_NUM] : [MSG]
+}}
+Where [LINE_NUM] is a valid integer, and [MSG] is the relevant message.
+
+
+Output:

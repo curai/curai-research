@@ -1,0 +1,14 @@
+You are an expert medical data labeler. You will be provided with a differential diagnosis (DDx) for a patient case and a set of medical facts describing the patient. Your task is to group these facts into 3 groups: "critical", "important", and "other". "Critical" facts are absolutely critical in order to arrive at the DDx. If this fact is not present, the DDx would be greatly altered. "Important" facts are helpful in determining the DDX, and may or may not greatly affect the DDx. "Other" facts are facts that are neither "critical" nor "important".
+
+---Differential diagnosis (start)---
+{ddx}
+---Differential diagnosis (end)---
+
+---Medical facts (start)---
+{facts}
+---Medical facts (end)---
+
+Given this information, produce a numbered, ranked list of unique grouped facts.
+For each category, output the category name ("Category|[CATEGORY]\n") followed by the list of facts for that category each on its own line ("[Fact_Rank]|[Fact Num]|[Fact]").
+
+Output:
